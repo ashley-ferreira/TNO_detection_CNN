@@ -22,7 +22,7 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+2-1/15AP+2-1_p36.
             print(reading)
             cutout = dlm.download_cutout(reading, needs_apcor=True)
             print(cutout.hdulist)
-            cutout.hdulist.writeto('/arc/projects/uvickbos/ML-MOD/'+ filename + \
+            cutout.hdulist.writeto('/arc/projects/uvickbos/ML-MOD/'+ filename \ 
                 + str(i) + '_label=' + str(real_exists) + '.fits', overwrite=True)
             mjd_obs = float(cutout.fits_header.get('MJD-OBS'))
             exptime = float(cutout.fits_header.get('EXPTIME'))
