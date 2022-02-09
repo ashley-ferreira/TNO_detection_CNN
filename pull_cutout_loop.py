@@ -22,7 +22,7 @@ for file in os.listdir(path):
     if count > num_files:
         break
 
-    else file.endswith(".cands.astrom"):
+    elif file.endswith(".cands.astrom"):
         print(file)
         file_path = os.path.join(path, file)
         print(file_path)
