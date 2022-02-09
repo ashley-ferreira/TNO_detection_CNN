@@ -3,7 +3,7 @@ from ossos import astrom
 from ossos.downloads.cutouts import downloader
 import sys 
 
-def pull_cutout(full_filename='/arc/home/jkavelaras/15AP+2-1_p36.measure3.cands.astrom', 
+def pull_cutout(full_filename='vos:OSSOS/measure3/2015AP/15AP+2-1_p36.measure3.cands.astrom', 
         filename='15AP+2-1_p36.measure3.cands.astrom', real_exists=0):
     '''
     
