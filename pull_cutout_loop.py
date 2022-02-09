@@ -6,7 +6,7 @@ import glob
 
 num_files = 1000
 
-path = '/arc/home/jkavelaras/15AP+2-1_p36.measure3.cands.astrom'
+path = '/arc/home/jkavelaras/2015AP/15AP+2-1_p36.measure3.cands.astrom'
 # path = 'vos:OSSOS/measure3/2015AP/15AP+2-1_p36.measure3.cands.astrom'
 # vos:OSSOS/measure3/${BLOCK} - use this to run through diff blocks
 
