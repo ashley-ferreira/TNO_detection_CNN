@@ -3,7 +3,8 @@ from ossos import astrom
 from ossos.downloads.cutouts import downloader
 import sys 
 
-def pull_cutout(full_filename, filename, real_exists):
+def pull_cutout(full_filename='/arc/home/jkavelaras/15AP+2-1_p36.measure3.cands.astrom', 
+        filename='15AP+2-1_p36.measure3.cands.astrom', real_exists=0):
     '''
     
     '''
@@ -30,6 +31,7 @@ def pull_cutout(full_filename, filename, real_exists):
 
     return 1
 
+pull_cutout() # temporary
 # right cutout size
 # loop through *.cands.astrom in block
 # save filename 
