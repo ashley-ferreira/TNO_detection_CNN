@@ -6,8 +6,8 @@ import glob
 
 num_files = 0
 
-path = '~/arc/home/jkavelaras/'
-# path = 'vos:OSSOS/measure3/2015AP/15AP+2-1_p36.measure3.cands.astrom'
+# path = '/arc/home/jkavelaras/'
+path = 'vos:OSSOS/measure3/2015AP/' # 15AP+2-1_p36.measure3.cands.astrom'
 # vos:OSSOS/measure3/${BLOCK} - use this to run through diff blocks
 
 real_files = glob.glob(path + "/*.reals.astrom")
