@@ -1,3 +1,5 @@
+# RUN IN LSST TERMINAL 
+
 import os
 import time
 import sys
@@ -56,6 +58,9 @@ test_fraction = 0.05
 
 ### create a labels array with length n , with 1==good star, and 0==else
 
+# REMOVE BACKGROUND
+
+# REGULARIZE
 
 
 ### now divide the cutouts array into training and testing datasets.
