@@ -28,9 +28,6 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+2-1/15AP+2-1_p36.
             print(f'Exposure taken at: {mjd_obs} with exposure time {exptime}')
 
 
-    return 1
-
-pull_cutout() # temporary
 # right cutout size
 # loop through *.cands.astrom in block
 # save filename 

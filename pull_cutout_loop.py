@@ -4,7 +4,7 @@ import sys
 import os
 import glob
 
-num_files = 0
+num_files = 100
 
 # path = '/arc/home/jkavelaras/'
 path = 'vos:OSSOS/measure3/2015AP/' # 15AP+2-1_p36.measure3.cands.astrom'
