@@ -4,7 +4,7 @@ from ossos.downloads.cutouts import downloader
 
 from astropy import units
 cutout_size = 140 # pixels as full height and width
-units.reading.uncertainty_ellipse.a = cutout_size/0.185/2/2.5 * units.arcsecond
+#units.reading.uncertainty_ellipse.a = cutout_size/0.185/2/2.5 * units.arcsecond
 
 
 import sys 
