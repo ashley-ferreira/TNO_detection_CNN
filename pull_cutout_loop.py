@@ -20,13 +20,13 @@ print(len(contents))
 # files = os.listdir(path)
 count = 0
 for file in contents: # os.listdir(path):
-
+    print(file)
     count +=1 
     if count > num_files:
         break
 
     elif file.endswith(".cands.astrom"):
-        print(file)
+        #print(file)
         file_path = os.path.join(path, file) # if full path isnt already given
         print(file_path)
         if file_path in real_files:
