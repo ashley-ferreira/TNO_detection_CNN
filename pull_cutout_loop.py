@@ -18,7 +18,7 @@ print(len(contents))
 # print(real_files) 
 
 # files = os.listdir(path)
-
+count = 0
 for file in contents: # os.listdir(path):
 
     count +=1 
