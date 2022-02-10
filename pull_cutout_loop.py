@@ -27,9 +27,12 @@ for file in contents: # os.listdir(path):
 
     elif file.endswith(".cands.astrom"):
         #print(file)
-        file_path = os.path.join(path, file) # if full path isnt already given
-        print(file_path)
-        if file_path in real_files:
+        file_path = os.path.join(path, file)
+        #print(file_path)
+        real_file = file.replace('.cands.astrom', '.reals.astrom')
+        print(file)
+        print(real_file)
+        if real_file in contents:
             real_exists = 1
             print('reals file found')
         else:
