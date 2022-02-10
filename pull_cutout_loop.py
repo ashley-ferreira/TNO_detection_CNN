@@ -3,6 +3,7 @@
 import sys 
 import os
 import glob
+from pull_cutout_func import pull_cutout
 
 num_files = 100
 
