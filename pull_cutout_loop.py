@@ -7,7 +7,7 @@ import glob
 num_files = 100
 
 # path = '/arc/home/jkavelaras/'
-path = 'vos:OSSOS/measure3/2015AP/' # 15AP+2-1_p36.measure3.cands.astrom'
+path = 'vos:OSSOS/measure3/2015A-P/' # 15AP+2-1_p36.measure3.cands.astrom'
 # vos:OSSOS/measure3/${BLOCK} - use this to run through diff blocks
 
 real_files = glob.glob(path + "/*.reals.astrom")
@@ -28,6 +28,7 @@ for file in os.listdir(path):
         print(file_path)
         if file_path in real_files:
             real_exists = 1
+            print('reals file found')
         else:
             real_exists = 0
         pull_cutout(file_path, file, real_exists)
