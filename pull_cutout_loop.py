@@ -7,20 +7,14 @@ from pull_cutout_func import pull_cutout
 
 num_files = 1000
 
-# path = '/arc/home/jkavelaras/'
-path = 'vos:OSSOS/measure3/2015A-P/15AP+2-1/' # 15AP+2-1_p36.measure3.cands.astrom'
-# vos:OSSOS/measure3/${BLOCK} - use this to run through diff blocks
-
+path = 'vos:OSSOS/measure3/2015A-P/15AP+2-1/'
 
 contents = os.popen('vls vos:OSSOS/measure3/2015A-P/15AP+2-1/').read().split('\n')
+print(contents)
 print(len(contents))
-#real_files = glob.glob(path + "/*.reals.astrom")
-#print('Number of .reals:', len(real_files))
-# print(real_files) 
 
-# files = os.listdir(path)
 count = 0
-for file in contents: # os.listdir(path):
+for file in contents: 
     print(file)
     count +=1 
     if count > num_files:
@@ -39,6 +33,3 @@ for file in contents: # os.listdir(path):
         else:
             real_exists = 0
         pull_cutout(file_path, file, real_exists)
-
-#.measure3.cands.astrom
-
