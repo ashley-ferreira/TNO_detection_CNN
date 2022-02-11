@@ -5,7 +5,7 @@ import os
 import glob
 from pull_cutout_func import pull_cutout
 
-num_files = 100
+num_files = 1000
 
 # path = '/arc/home/jkavelaras/'
 path = 'vos:OSSOS/measure3/2015A-P/15AP+2-1/' # 15AP+2-1_p36.measure3.cands.astrom'
