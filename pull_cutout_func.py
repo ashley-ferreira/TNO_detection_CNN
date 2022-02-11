@@ -7,6 +7,10 @@ cutout_size = 140 # pixels as full height and width
 
 import sys 
 
+from ossos.gui import logger
+
+logger.set_debug()
+
 
 def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+2-1/15AP+2-1_p36.measure3.cands.astrom', 
         filename='15AP+2-1_p36.measure3.cands.astrom', real_exists=0):
@@ -18,7 +22,7 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+2-1/15AP+2-1_p36.
 
     parser = astrom.AstromParser()
 
-    dlm = downloader.ImageCutoutDownloader(slice_rows=200, slice_cols=200)
+    dlm = downloader.ImageCutoutDownloader()
 
     sources = parser.parse(full_filename)
 
