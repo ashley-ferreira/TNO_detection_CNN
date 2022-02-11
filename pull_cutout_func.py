@@ -4,7 +4,6 @@ from ossos.downloads.cutouts import downloader
 
 from astropy import units
 cutout_size = 140 # pixels as full height and width
-#reading.uncertainty_ellipse.a = cutout_size/0.185/2/2.5 * units.arcsecond
 
 import sys 
 
@@ -25,6 +24,7 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+2-1/15AP+2-1_p36.
 
     for source in sources.get_sources()[1:2]:
         for i,reading in enumerate(source.get_readings()):
+            reading.uncertainty_ellipse.a = cutout_size/0.185/2/2.5 * units.arcsecond
             print(reading)
             cutout = dlm.download_cutout(reading, needs_apcor=True)
             print(cutout.hdulist)
@@ -34,7 +34,7 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+2-1/15AP+2-1_p36.
             print(f'Exposure taken at: {mjd_obs} with exposure time {exptime}')
 
 
-#pull_cutout()
+pull_cutout()
 
 
 

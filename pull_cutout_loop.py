@@ -15,17 +15,17 @@ print(len(contents))
 
 count = 0
 for file in contents: 
-    print(file)
+    print('checking file',file)
     count +=1 
     if count > num_files:
         break
 
     elif file.endswith(".cands.astrom"):
-        #print(file)
+        print('this is a .cans.astrom file')
         file_path = os.path.join(path, file)
         #print(file_path)
         real_file = file.replace('.cands.astrom', '.reals.astrom')
-        print(file)
+        print('searching for .reals.astrom, found')
         print(real_file)
         if real_file in contents:
             real_exists = 1
