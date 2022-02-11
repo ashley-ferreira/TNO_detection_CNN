@@ -28,7 +28,7 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+2-1/15AP+2-1_p36.
 
     for source in sources.get_sources()[1:2]:
         for i,reading in enumerate(source.get_readings()):
-            reading.uncertainty_ellipse.a = cutout_size/0.185/2/2.5 * units.arcsecond
+            reading.uncertainty_ellipse.a = cutout_size*0.185/2/2.5 * units.arcsecond
             print(reading)
             print(reading.uncertainty_ellipse)
             cutout = dlm.download_cutout(reading, needs_apcor=True)
