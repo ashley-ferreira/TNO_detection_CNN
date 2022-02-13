@@ -5,7 +5,7 @@ import os
 import glob
 from pull_cutout_func import pull_cutout
 
-num_files = 1000
+num_files = 10000
 
 path = 'vos:OSSOS/measure3/2015A-P/15AP+2-1/'
 

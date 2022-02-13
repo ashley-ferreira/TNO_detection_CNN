@@ -37,19 +37,3 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+2-1/15AP+2-1_p36.
             mjd_obs = float(cutout.fits_header.get('MJD-OBS'))
             exptime = float(cutout.fits_header.get('EXPTIME'))
             print(f'Exposure taken at: {mjd_obs} with exposure time {exptime}')
-
-
-pull_cutout()
-
-
-
-
-
-
-
-# right cutout size
-# loop through *.cands.astrom in block
-# save filename 
-# move to CNN code
-# search for .reals, assign label1, others 0 (can put in fname?)
-# remove background for indiv img, then regularize 
