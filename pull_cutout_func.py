@@ -3,7 +3,7 @@ from ossos import astrom
 from ossos.downloads.cutouts import downloader
 
 from astropy import units
-cutout_size = 140 # pixels as full height and width
+cutout_size = 140/2 # pixels as radius
 
 import sys 
 
