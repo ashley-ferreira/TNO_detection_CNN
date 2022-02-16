@@ -288,7 +288,7 @@ cn_model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=["ac
 
 start = time.time()
 
-classifier = cn_model.fit(X_train, y_train, epochs=num_epochs, batch_size=batch_size)
+classifier = cn_model.fit(X_train, y_train_binary, epochs=num_epochs, batch_size=batch_size)
 
 end = time.time()
 print('Process completed in', round(end-start, 2), ' seconds')
@@ -316,3 +316,5 @@ ax2.set_xlabel('Epoch')
 
 pyl.show()
 pyl.close()
+
+# plot test and train ones that don't agree with labels
