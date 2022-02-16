@@ -46,7 +46,7 @@ from tensorflow.keras.optimizers import Adam
 
 import keras
 from keras.models import Sequential
-from keras.layers import Dense, BatchNormalization, Flatten, Conv2D, MaxPool2D
+from keras.layers import Dense, BatchNormalization, Flatten, Conv3D, MaxPool3D
 from keras.layers.core import Dropout
 from keras.callbacks import EarlyStopping, ModelCheckpoint
 
@@ -249,7 +249,7 @@ print(cutouts.shape) # more than 3 sometimes
 
 
 ### create a labels array with length n , with 1==good star, and 0==else
-
+'''
 
 
 ### now divide the cutouts array into training and testing datasets.
@@ -345,4 +345,3 @@ pyl.close()
 preds_test = cn_model.predict(X_test, verbose=1)
 
 preds_train = cn_model.predict(X_train, verbose=1)
-'''
