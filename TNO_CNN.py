@@ -320,8 +320,9 @@ c = 0.5
 # plot test and train ones that don't agree with labels
 for i in range(len(preds_train)):
     triplet_Xtrain = X_train[i]
-
+    print(triplet_Xtrain.shape)
     for t in triplet_Xtrain:
+        print(t.shape)
 
         if y_train[i] == 0 and preds_train[i][1] > c:
             
