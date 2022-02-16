@@ -9,12 +9,15 @@ num_files = 10000
 
 vos_path = 'vos:OSSOS/measure3/2015A-P/'
 
-AP_15_dirs = os.popen('vls ', vos_path).read().split('\n')
+str1 = 'vls ' + vos_path
+AP_15_dirs = os.popen(str1).read().split('\n')
 local_path = '/arc/projects/uvickbos/ML-MOD/OSSOS_datapull/2015-AP/'
 
 for dir in AP_15_dirs:
     # loop through all dirs in 2015A-P
-    contents = os.popen('vls vos:OSSOS/measure3/2015A-P/', dir).read().split('\n')
+    print(dir)
+    str2 = 'vls vos:OSSOS/measure3/2015A-P/'+ dir
+    contents = os.popen(str2).read().split('\n')
 
     count = 0
     for file in contents: 
