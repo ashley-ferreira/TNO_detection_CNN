@@ -123,17 +123,16 @@ count = 0
 
 check_total = 0
 for file in file_lst: # make sure gets sorted with 3?
-    count +=1 
     #print(file) # assuming 3 in a row, can put in dirs
     # load image data
     with fits.open(cutout_path+file) as han:
         img_data = han[1].data.astype('float64')
         img_header = han[0].header
-            
-    print(img_data.shape)
+
     (aa,bb) = img_data.shape
     print(aa, bb)
-    if aa > 240 and bb > 240:        
+    if aa > 240 and bb > 240:  
+        count +=1      
         img_data = crop_center(img_data, 240/2, 240/2)    
         triplet.append(img_data)
 
@@ -147,7 +146,7 @@ for file in file_lst: # make sure gets sorted with 3?
             check_total +=1 
             print(check_total) # doesn't hit this?
     else:
-        continue # skip rest?
+        continue # skip rest? somehow
 
 labels = np.array(labels)
 cutouts = np.array(cutouts)
