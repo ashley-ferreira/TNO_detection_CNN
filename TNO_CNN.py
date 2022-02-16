@@ -198,8 +198,8 @@ elif num_good > num_bad:
     
     good_labels = np.ones(num_bad)
 
-bad_cutouts = np.expand_dims(random_bad_cutouts, axis=3)
-good_cutouts = np.expand_dims(random_good_cutouts, axis=3)
+bad_cutouts = np.expand_dims(random_bad_cutouts, axis=4)
+good_cutouts = np.expand_dims(random_good_cutouts, axis=4)
 
 # combine arrays 
 cutouts = np.concatenate((good_cutouts, bad_cutouts))
