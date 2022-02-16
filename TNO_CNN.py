@@ -121,7 +121,36 @@ labels = []
 triplet = []
 count = 0
 
+
 check_total = 0
+for file in file_lst: 
+    with fits.open(cutout_path+file) as han:
+        img_data = han[1].data.astype('float64')
+        img_header = han[0].header
+
+    count +=1      
+    img_data = crop_center(img_data, 240/2, 240/2)    
+    triplet.append(img_data)
+
+    if count == 3:
+        triplet = []
+        count = 0
+        cutouts.append(triplet)
+        label = file[-6]
+        #print(label)
+        labels.append(label)
+        check_total +=1 
+        print(check_total) 
+
+labels = np.array(labels)
+cutouts = np.array(cutouts)
+print(cutouts.shape) # more than 3 sometimes
+
+
+
+
+
+'''
 for file in file_lst: # make sure gets sorted with 3?
     #print(file) # assuming 3 in a row, can put in dirs
     # load image data
@@ -150,9 +179,8 @@ for file in file_lst: # make sure gets sorted with 3?
 
 labels = np.array(labels)
 cutouts = np.array(cutouts)
-print(cutouts.shape) # zero?
+print(cutouts.shape) # more than 3 sometimes
 
-'''
 #cutouts = np.expand_dims(cutouts, axis = 4)
 
 
