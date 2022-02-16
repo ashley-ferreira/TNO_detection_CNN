@@ -293,6 +293,9 @@ classifier = cn_model.fit(X_train, y_train, epochs=num_epochs, batch_size=batch_
 end = time.time()
 print('Process completed in', round(end-start, 2), ' seconds')
 
+### get the model output classifications for the train set
+preds_train = cn_model.predict(X_train, verbose=1)
+
 """
 Plot accuracy/loss versus epoch
 """
@@ -313,6 +316,3 @@ ax2.set_xlabel('Epoch')
 
 pyl.show()
 pyl.close()
-
-### get the model output classifications for the train set
-preds_train = cn_model.predict(X_train, verbose=1)
