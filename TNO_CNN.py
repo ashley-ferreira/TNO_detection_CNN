@@ -29,7 +29,7 @@ from trippy import tzscale
 from trippy.trippy_utils import expand2d, downSample2d
 import glob
 
-
+cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts/'
 
 
 ####section for setting up some flags and hyperparameters
@@ -54,6 +54,35 @@ test_fraction = 0.05
 # line might be necessary
 #
 # the cutouts array needs to include cutouts for both good and bad sources.
+
+cutouts = []
+labels = []
+
+# for each triplet
+triplet = []
+count = 0
+for file in os.listdir(cutout_path): # make sure gets sorted with 3?
+    count +=1 
+    print(file) # assuming 3 in a row, can put in dirs
+    # load image data
+    with fits.open(cutout_path+file) as han:
+        img_data = han[1].data.astype('float64')
+        img_header = han[0].header
+        
+    triplet.append(img_data)
+
+    if count == 3:
+        triplet = []
+        count = 0
+        cutouts.append(triplet)
+        label = file[-6]
+        print(label)
+        labels.append(label)
+
+'''
+#cutouts = np.array(cutouts)
+#cutouts = np.expand_dims(cutouts, axis = 4)
+
 
 
 ### create a labels array with length n , with 1==good star, and 0==else
@@ -156,3 +185,4 @@ pyl.close()
 preds_test = cn_model.predict(X_test, verbose=1)
 
 preds_train = cn_model.predict(X_train, verbose=1)
+'''
