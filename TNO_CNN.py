@@ -71,7 +71,7 @@ cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts/'
 ####section for setting up some flags and hyperparameters
 batch_size = 16
 dropout_rate = 0.2
-test_fraction = 0
+test_fraction = 0.1
 num_epochs = 10
 
 
@@ -212,12 +212,6 @@ print(len(labels))
 with open(cutout_path + 'presaved_data.pickle', 'wb+') as han:
     pickle.dump([cutouts, labels], han)
 
-# 50/50 SPLIT
-
-#with open('background_data.pickle', 'wb+') as han:
-#    pickle.dump([background], han)
-
-
 # REGULARIZE
 cutouts = np.asarray(cutouts).astype('float32')
 std = np.nanstd(cutouts)
@@ -297,8 +291,9 @@ print('Process completed in', round(end-start, 2), ' seconds')
 ### get the model output classifications for the train set
 preds_train = cn_model.predict(X_train, verbose=1)
 #preds_test = cn_model.predict(X_test, verbose=1)
-#eval_test = cn_model.evaluate(X_test, y_test_binary, batch_size=batch_size, verbose=1)
-#print("test loss, test acc:", eval_test)
+
+eval_test = cn_model.evaluate(X_test, y_test_binary, batch_size=batch_size, verbose=1)
+print("test loss, test acc:", eval_test)
 
 """
 Plot accuracy/loss versus epoch
