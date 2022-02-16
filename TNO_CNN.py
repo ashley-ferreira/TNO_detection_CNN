@@ -57,6 +57,7 @@ from sklearn.utils import class_weight
 from sklearn.utils.multiclass import unique_labels
 
 from astropy.visualization import interval, ZScaleInterval
+from astropy.io import fits
 zscale = ZScaleInterval()
 
 ## initializing random seeds for reproducability
