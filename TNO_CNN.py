@@ -162,7 +162,7 @@ num_bad = len(bad_cutouts)
 print(num_good, 'good cutouts')
 print(num_bad, 'bad cutouts')
 
-if num_good > num_bad:
+if num_good > num_bad: # equalize either way
     print('more good cutouts than bad')
     sys.exit()
 
