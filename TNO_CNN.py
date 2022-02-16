@@ -71,7 +71,7 @@ cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts/'
 ####section for setting up some flags and hyperparameters
 batch_size = 16
 dropout_rate = 0.2
-test_fraction = 0.1
+test_fraction = 0
 num_epochs = 10
 
 
@@ -279,6 +279,7 @@ def convnet_model(input_shape, training_labels, unique_labs, dropout_rate=dropou
 
 unique_labels = 2
 y_train_binary = keras.utils.np_utils.to_categorical(y_train, unique_labels)
+y_test_binary = keras.utils.np_utils.to_categorical(y_test, unique_labels)
 
 ### train the model!
 cn_model = convnet_model(X_train.shape[1:], training_labels = y_train_binary, unique_labs=unique_labels)
@@ -295,6 +296,9 @@ print('Process completed in', round(end-start, 2), ' seconds')
 
 ### get the model output classifications for the train set
 preds_train = cn_model.predict(X_train, verbose=1)
+#preds_test = cn_model.predict(X_test, verbose=1)
+#eval_test = cn_model.evaluate(X_test, y_test_binary, batch_size=batch_size, verbose=1)
+#print("test loss, test acc:", eval_test)
 
 """
 Plot accuracy/loss versus epoch
@@ -317,4 +321,21 @@ ax2.set_xlabel('Epoch')
 pyl.show()
 pyl.close()
 
+c = 0.5
 # plot test and train ones that don't agree with labels
+for i in range(len(preds_train)):
+    if y_train[i] == 0 and preds_train[i][1] > c:
+        (c1, c2) = zscale.get_limits(X_test[i])
+        normer = interval.ManualInterval(c1,c2)
+        pyl.title('labeled no TNO, predicted TNO at conf=' + str(preds_train[i][1]))
+        pyl.imshow(normer(X_train[i]))
+        pyl.show()
+        pyl.close()
+
+    if y_train[i] == 1 and preds_train[i][0] > c:
+        (c1, c2) = zscale.get_limits(X_test[i])
+        normer = interval.ManualInterval(c1,c2)
+        pyl.title('labeled TNO, predicted no TNO at conf=' + str(preds_train[i][1]))
+        pyl.imshow(normer(X_train[i]))
+        pyl.show()
+        pyl.close()
