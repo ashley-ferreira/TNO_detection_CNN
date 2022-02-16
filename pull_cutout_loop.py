@@ -27,9 +27,11 @@ for file in contents:
         real_file = file.replace('.cands.astrom', '.reals.astrom')
         print('searching for .reals.astrom, found')
         print(real_file)
+        real_exists = 0
         if real_file in contents:
-            real_exists = 1
             print('reals file found')
-        else:
-            real_exists = 0
+            filesize = os.path.getsize(real_file)
+            if filesize != 0:
+                print('real_exists = 1')
+                real_exists = 1
         pull_cutout(file_path, file, real_exists)
