@@ -120,6 +120,8 @@ labels = []
 # for each triplet
 triplet = []
 count = 0
+
+check_total = 0
 for file in file_lst: # make sure gets sorted with 3?
     count +=1 
     #print(file) # assuming 3 in a row, can put in dirs
@@ -142,11 +144,15 @@ for file in file_lst: # make sure gets sorted with 3?
             label = file[-6]
             #print(label)
             labels.append(label)
+            check_total +=1 
+            print(check_total)
     else:
         continue # skip rest?
 
+labels = np.array(labels)
 cutouts = np.array(cutouts)
-print(cutouts.shape) # DIFF SIZES?? 
+print(cutouts.shape) # zero?
+
 '''
 #cutouts = np.expand_dims(cutouts, axis = 4)
 
