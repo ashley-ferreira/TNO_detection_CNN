@@ -1,5 +1,6 @@
 # RUN IN LSST TERMINAL 
 
+'''
 import os
 import time
 import sys
@@ -15,7 +16,7 @@ from keras.models import Model, load_model, Sequential
 from keras.layers import Input, Dense, Activation, ZeroPadding2D, BatchNormalization, Flatten, Conv3D, Conv2D, MaxPool3D
 from keras.layers.core import Dropout, Lambda
 from keras.callbacks import EarlyStopping, ModelCheckpoint
-from keras.utils import to_categorical
+#from keras.utils import to_categorical
 from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 from sklearn.model_selection import train_test_split, cross_val_score, KFold
 from sklearn.metrics import confusion_matrix, accuracy_score
@@ -28,6 +29,40 @@ from astropy.visualization import interval
 from trippy import tzscale
 from trippy.trippy_utils import expand2d, downSample2d
 import glob
+''' 
+import os
+from os import path
+import time
+from datetime import date 
+from datetime import datetime
+import sys
+import numpy as np
+import matplotlib.pyplot as pyl
+import pickle
+import heapq
+
+import tensorflow as tf
+from tensorflow.keras.optimizers import Adam
+
+import keras
+from keras.models import Sequential
+from keras.layers import Dense, BatchNormalization, Flatten, Conv2D, MaxPool2D
+from keras.layers.core import Dropout
+from keras.callbacks import EarlyStopping, ModelCheckpoint
+
+from sklearn.metrics import confusion_matrix
+from sklearn.utils.multiclass import unique_labels
+from sklearn.model_selection import StratifiedShuffleSplit
+from sklearn.utils import class_weight
+from sklearn.utils.multiclass import unique_labels
+
+from astropy.visualization import interval, ZScaleInterval
+zscale = ZScaleInterval()
+
+## initializing random seeds for reproducability
+# tf.random.set_seed(1234)
+# keras.utils.set_random_seed(1234)
+np.random.seed(432)
 
 cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts/'
 
@@ -79,6 +114,7 @@ for file in os.listdir(cutout_path): # make sure gets sorted with 3?
         print(label)
         labels.append(label)
 
+print(cutouts.shape)
 '''
 #cutouts = np.array(cutouts)
 #cutouts = np.expand_dims(cutouts, axis = 4)
