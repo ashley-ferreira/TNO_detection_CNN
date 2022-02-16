@@ -9,7 +9,7 @@ num_files = 100000
 
 vos_path = 'vos:OSSOS/measure3/2015A-P/'
 
-local_path = '/arc/projects/uvickbos/ML-MOD/OSSOS_datapull/2015-AP/'
+local_path = '/arc/projects/uvickbos/ML-MOD/OSSOS_datapull/2015-AP'
 
 str1 = 'ls ' + local_path
 AP_15_dirs = os.popen(str1).read().split('\n')
