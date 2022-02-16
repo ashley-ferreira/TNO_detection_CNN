@@ -128,7 +128,8 @@ for file in file_lst:
         img_data = han[1].data.astype('float64')
         img_header = han[0].header
 
-    count +=1      
+    count +=1   
+    print(count)   
     img_data = crop_center(img_data, 140/2, 140/2)    
     triplet.append(img_data)
 
