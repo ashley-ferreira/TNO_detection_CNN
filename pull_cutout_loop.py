@@ -35,5 +35,5 @@ for file in contents:
             #print(filesize)
             if filesize != 0:
                 print('real_exists = 1')
-            real_exists = 1
+                real_exists = 1
         pull_cutout(file_path, file, real_exists)
