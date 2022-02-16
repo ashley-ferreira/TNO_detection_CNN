@@ -132,6 +132,8 @@ for file in file_lst:
 
     count +=1   
     #print(count)   
+    # REMOVE BACKGROUND
+    img_data -= np.nanmedian(img_data)
     img_data = crop_center(img_data, 120, 120) # skip smaller ones, makes it smaller?    
     triplet.append(img_data)
     print(img_data.shape)
@@ -193,6 +195,24 @@ print(str(len(cutouts)) + ' files used')
 with open(cutout_path + 'presaved_data.pickle', 'wb+') as han:
     pickle.dump([cutouts, labels], han)
 
+# 50/50 SPLIT
+
+#with open('background_data.pickle', 'wb+') as han:
+#    pickle.dump([background], han)
+
+
+# REGULARIZE
+cutouts = np.asarray(cutouts).astype('float32')
+std = np.nanstd(cutouts)
+mean = np.nanmean(cutouts)
+cutouts -= mean
+cutouts /= std
+w_bad = np.where(np.isnan(cutouts))
+cutouts[w_bad] = 0.0
+
+with open('regularization_data.pickle', 'wb+') as han:
+    pickle.dump([std, mean], han)
+
 '''
 for file in file_lst: # make sure gets sorted with 3?
     #print(file) # assuming 3 in a row, can put in dirs
@@ -230,11 +250,6 @@ print(cutouts.shape) # more than 3 sometimes
 
 ### create a labels array with length n , with 1==good star, and 0==else
 
-# 50/50 SPLIT
-
-# REMOVE BACKGROUND
-
-# REGULARIZE
 
 
 ### now divide the cutouts array into training and testing datasets.
