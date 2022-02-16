@@ -132,18 +132,17 @@ for file in file_lst:
         img_header = han[0].header
 
     count +=1 
-    (aa,bb) = img_data.shape
-    print(aa, bb)
-    if aa > 240 and bb > 240:   
-        #print(count)   
-        # REMOVE BACKGROUND
-        img_data -= np.nanmedian(img_data)
-        img_data = crop_center(img_data, 120, 120) # skip smaller ones, makes it smaller?    
-        triplet.append(img_data)
-        print(img_data.shape)
+       
+    img_data -= np.nanmedian(img_data)
+    img_data = crop_center(img_data, 120, 120) # skip smaller ones, makes it smaller?    
+    print(img_data.shape)
 
+    (aa,bb) = img_data.shape
+    if aa == 120 and bb == 120:
+        triplet.append(img_data)
     else:
         triplet.append(np.zeros(120,120))
+    
 
     if count == 3: # how does it not hit 3? does
         label = int(file[-6])
