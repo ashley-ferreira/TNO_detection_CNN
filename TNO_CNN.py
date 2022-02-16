@@ -155,8 +155,14 @@ good_cutouts = np.array(good_cutouts, dtype=object)
 bad_labels = np.array(bad_labels)
 bad_cutouts = np.array(bad_cutouts, dtype=object)
 
-print(len(good_cutouts), 'good cutouts')
-print(len(bad_cutouts), 'bad cutouts')
+num_good = len(good_cutouts)
+num_bad = len(bad_cutouts)
+print(num_good, 'good cutouts')
+print(num_bad, 'bad cutouts')
+
+if num_good > num_bad:
+    print('more good cutouts than bad')
+    sys.exit()
 
 '''
 for file in file_lst: # make sure gets sorted with 3?
