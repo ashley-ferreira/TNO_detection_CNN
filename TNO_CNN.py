@@ -72,6 +72,7 @@ cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts/'
 batch_size = 16
 dropout_rate = 0.2
 test_fraction = 0.05
+num_epochs = 0
 
 
 ####
@@ -172,7 +173,7 @@ if num_good < num_bad:
     number_of_rows = bad_cutouts.shape[0]
     random_indices = np.random.choice(number_of_rows, size=num_good, replace=False)
     random_bad_cutouts = bad_cutouts[random_indices, :]
-    bad_cutouts = np.expand_dims(random_bad_cutouts, axis=3)
+    #bad_cutouts = np.expand_dims(random_bad_cutouts, axis=3)
     
     label_bad = np.zeros(num_good)
 
@@ -180,7 +181,7 @@ elif num_good > num_bad:
     number_of_rows = good_cutouts.shape[0]
     random_indices = np.random.choice(number_of_rows, size=num_bad, replace=False)
     random_good_cutouts = good_cutouts[random_indices, :]
-    good_cutouts = np.expand_dims(random_good_cutouts, axis=3)
+    #good_cutouts = np.expand_dims(random_good_cutouts, axis=3)
     
     label_good = np.ones(num_bad)
 
@@ -313,7 +314,7 @@ early_stopper = EarlyStopping(monitor='loss', patience=2, verbose=1)
 start = time.time()
 
 
-classifier = cn_model.fit(X_train, y_train, epochs=80, batch_size=batch_size, callbacks=[checkpointer])
+classifier = cn_model.fit(X_train, y_train, epochs=num_epochs, batch_size=batch_size, callbacks=[checkpointer])
 
 end = time.time()
 print('Process completed in', round(end-start, 2), ' seconds')
