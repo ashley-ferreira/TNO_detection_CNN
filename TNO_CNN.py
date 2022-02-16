@@ -114,9 +114,11 @@ def crop_center(img, cropx, cropy):
 
 file_lst = sorted(os.listdir(cutout_path))#.sort()
 
-cutouts = []
-labels = []
+good_cutouts = []
+bad_cutouts = []
 
+good_labels = []
+bad_labels = []
 # for each triplet
 triplet = []
 count = 0
@@ -134,24 +136,27 @@ for file in file_lst:
     triplet.append(img_data)
     print(img_data.shape)
     if count == 3: # how does it not hit 3? does
-        cutouts.append(triplet)
         label = file[-6]
-        #print(label)
-        labels.append(label)
+        if label == 1:
+            good_cutouts.append(triplet)
+            good_labels.append(1) # can do after too
+        elif label == 0:
+            bad_cutouts.append(triplet)
+            bad_labels.append(0) 
+
         check_total +=1 
         triplet = []
         count = 0
         #print(check_total) 
 
-labels = np.array(labels)
-cutouts = np.array(cutouts, dtype=object)
-print(cutouts.shape)
-cutouts = np.expand_dims(cutouts, axis=3) # wrong index?
-print(cutouts.shape) # more than 3 sometimes, someway to througout?
+good_labels = np.array(good_labels)
+good_cutouts = np.array(good_cutouts, dtype=object)
 
+bad_labels = np.array(bad_labels)
+bad_cutouts = np.array(bad_cutouts, dtype=object)
 
-
-
+print(len(good_cutouts), 'good cutouts')
+print(len(bad_cutouts), 'bad cutouts')
 
 '''
 for file in file_lst: # make sure gets sorted with 3?
