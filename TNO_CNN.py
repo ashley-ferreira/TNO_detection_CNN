@@ -257,7 +257,7 @@ def convnet_model(input_shape, training_labels, dropout_rate=dropout_rate):
     #hidden layer 1
     model.add(Conv3D(filters=16, kernel_size=(3, 3, 1), input_shape=input_shape, activation='relu', padding='same'))
     model.add(Dropout(dropout_rate))
-    model.add(MaxPool3D(pool_size=(2, 2, 2), padding='valid'))
+    model.add(MaxPool3D(pool_size=(1, 1, 1), padding='valid'))
 
     #hidden layer 2 with Pooling
     model.add(Conv3D(filters=16, kernel_size=(3, 3, 1), input_shape=input_shape, activation='relu', padding='same'))
