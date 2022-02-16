@@ -9,7 +9,7 @@ num_files = 10000
 
 path = 'vos:OSSOS/measure3/2015A-P/15AP+2-1/'
 
-contents = os.popen('vls vos:OSSOS/measure3/2015A-P/15AP+2-1/').read().split('\n')
+contents = os.popen('vls vos:OSSOS/measure3/2015A-P/15AP+2-1/ -size +0').read().split('\n')
 print(contents)
 print(len(contents))
 
@@ -31,9 +31,9 @@ for file in contents:
         if real_file in contents:
             print('reals file found')
             #filesize = os.path.getsize(path + real_file)
-            filesize = os.popen('stat '+path+real_file)
-            print(filesize)
-            if filesize != 0:
-                print('real_exists = 1')
-                real_exists = 1
+            #filesize = os.popen('stat '+path+real_file)
+            #print(filesize)
+            #if filesize != 0:
+            #    print('real_exists = 1')
+            real_exists = 1
         pull_cutout(file_path, file, real_exists)
