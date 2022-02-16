@@ -130,17 +130,17 @@ for file in file_lst:
 
     count +=1   
     #print(count)   
-    img_data = crop_center(img_data, 100, 100) # skip smaller ones, makes it smaller?    
+    img_data = crop_center(img_data, 120, 120) # skip smaller ones, makes it smaller?    
     triplet.append(img_data)
     print(img_data.shape)
     if count == 3: # how does it not hit 3? does
-        triplet = []
-        count = 0
         cutouts.append(triplet)
         label = file[-6]
         #print(label)
         labels.append(label)
         check_total +=1 
+        triplet = []
+        count = 0
         #print(check_total) 
 
 labels = np.array(labels)
