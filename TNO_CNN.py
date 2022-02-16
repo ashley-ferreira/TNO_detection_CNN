@@ -136,7 +136,7 @@ for file in file_lst:
     triplet.append(img_data)
     print(img_data.shape)
     if count == 3: # how does it not hit 3? does
-        label = file[-6]
+        label = int(file[-6])
         if label == 1:
             good_cutouts.append(triplet)
             good_labels.append(1) # can do after too
@@ -151,9 +151,11 @@ for file in file_lst:
 
 good_labels = np.array(good_labels)
 good_cutouts = np.array(good_cutouts, dtype=object)
+print(good_cutouts.shape)
 
 bad_labels = np.array(bad_labels)
 bad_cutouts = np.array(bad_cutouts, dtype=object)
+print(bad_cutouts.shape)
 
 num_good = len(good_cutouts)
 num_bad = len(bad_cutouts)
