@@ -129,7 +129,7 @@ for file in file_lst:
         img_header = han[0].header
 
     count +=1      
-    img_data = crop_center(img_data, 240/2, 240/2)    
+    img_data = crop_center(img_data, 140/2, 140/2)    
     triplet.append(img_data)
 
     if count == 3:
@@ -144,7 +144,7 @@ for file in file_lst:
 
 labels = np.array(labels)
 cutouts = np.array(cutouts)
-print(cutouts.shape) # more than 3 sometimes
+print(cutouts.shape) # more than 3 sometimes, someway to througout?
 
 
 
