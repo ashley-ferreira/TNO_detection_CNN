@@ -135,7 +135,7 @@ for file in file_lst:
         count +=1 
         
         img_data -= np.nanmedian(img_data)
-        img_data = crop_center(img_data, 120, 120) # skip smaller ones, makes it smaller?    
+        img_data = crop_center(img_data, 120, 120) # skip smaller ones    
         print(img_data.shape)
 
         (aa,bb) = img_data.shape
@@ -186,13 +186,15 @@ if num_good < num_bad:
     number_of_rows = bad_cutouts.shape[0]
     random_indices = np.random.choice(number_of_rows, size=num_good, replace=False)
     random_bad_cutouts = bad_cutouts[random_indices, :]
+    random_good_cutouts = good_cutouts
     
     bad_label = np.zeros(num_good)
 
-elif num_good > num_bad:
+elif num_good > num_bad: 
     number_of_rows = good_cutouts.shape[0]
     random_indices = np.random.choice(number_of_rows, size=num_bad, replace=False)
     random_good_cutouts = good_cutouts[random_indices, :]
+    random_bad_cutouts = bad_cutouts
     
     good_label = np.ones(num_bad)
 
