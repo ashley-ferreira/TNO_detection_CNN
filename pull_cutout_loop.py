@@ -8,7 +8,7 @@ from pull_cutout_func import pull_cutout
 num_files = 10000
 
 vos_path = 'vos:OSSOS/measure3/2015A-P/15AP+2-1/'
-local_path = '/arc/projects/uvickbos/ML-MOD/OSSIS_datapull'
+local_path = '/arc/projects/uvickbos/ML-MOD/OSSOS_datapull/'
 
 # loop through all dirs in 2015A-P
 contents = os.popen('vls vos:OSSOS/measure3/2015A-P/15AP+2-1/').read().split('\n')
