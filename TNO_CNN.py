@@ -141,7 +141,7 @@ for file in file_lst:
     if aa == 120 and bb == 120:
         triplet.append(img_data)
     else:
-        triplet.append(np.zeros(120,120))
+        triplet.append(np.zeros((120,120)))
     
 
     if count == 3: # how does it not hit 3? does
