@@ -127,9 +127,10 @@ count = 0
 
 check_total = 0
 for file in file_lst: 
+    
     with fits.open(cutout_path+file) as han:
         img_data = han[1].data.astype('float64')
-        img_header = han[0].header
+        #img_header = han[0].header
 
     count +=1 
        
