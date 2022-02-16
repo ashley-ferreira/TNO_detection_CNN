@@ -145,6 +145,7 @@ for file in file_lst:
 
 labels = np.array(labels)
 cutouts = np.array(cutouts, dtype=object)
+cutouts = np.expand_dims(cutouts, axis = 3)
 print(cutouts.shape) # more than 3 sometimes, someway to througout?
 
 
