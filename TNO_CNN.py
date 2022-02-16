@@ -130,7 +130,7 @@ for file in file_lst:
 
     count +=1   
     #print(count)   
-    img_data = crop_center(img_data, 140/2, 140/2)    
+    img_data = crop_center(img_data, 140, 140) # skip smaller ones    
     triplet.append(img_data)
     print(img_data.shape)
     if count == 3: # how does it not hit 3? does
@@ -144,7 +144,7 @@ for file in file_lst:
         #print(check_total) 
 
 labels = np.array(labels)
-cutouts = np.array(cutouts)
+cutouts = np.array(cutouts, dtype=object)
 print(cutouts.shape) # more than 3 sometimes, someway to througout?
 
 
