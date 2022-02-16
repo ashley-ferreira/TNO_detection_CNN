@@ -91,13 +91,15 @@ test_fraction = 0.05
 #
 # the cutouts array needs to include cutouts for both good and bad sources.
 
+file_lst = os.listdir(cutout_path).sort()
+
 cutouts = []
 labels = []
 
 # for each triplet
 triplet = []
 count = 0
-for file in os.listdir(cutout_path): # make sure gets sorted with 3?
+for file in file_lst: # make sure gets sorted with 3?
     count +=1 
     print(file) # assuming 3 in a row, can put in dirs
     # load image data
