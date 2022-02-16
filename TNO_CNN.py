@@ -182,7 +182,7 @@ if num_good < num_bad:
     random_bad_cutouts = bad_cutouts[random_indices, :]
     #bad_cutouts = np.expand_dims(random_bad_cutouts, axis=3)
     
-    label_bad = np.zeros(num_good)
+    bad_label = np.zeros(num_good)
 
 elif num_good > num_bad:
     number_of_rows = good_cutouts.shape[0]
@@ -190,13 +190,13 @@ elif num_good > num_bad:
     random_good_cutouts = good_cutouts[random_indices, :]
     #good_cutouts = np.expand_dims(random_good_cutouts, axis=3)
     
-    label_good = np.ones(num_bad)
+    good_label = np.ones(num_bad)
 
 
 # combine arrays 
 cutouts = np.concatenate((good_cutouts, bad_cutouts))
 # make label array for all
-labels = np.concatenate((label_good, label_bad))
+labels = np.concatenate((good_labels, bad_labels))
             
 print(str(len(cutouts)) + ' files used')
 
