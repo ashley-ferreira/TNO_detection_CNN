@@ -91,7 +91,7 @@ test_fraction = 0.05
 #
 # the cutouts array needs to include cutouts for both good and bad sources.
 
-file_lst = os.listdir(cutout_path)#.sort()
+file_lst = sorted(os.listdir(cutout_path))#.sort()
 print(file_lst) # this is none???
 
 cutouts = []
@@ -118,9 +118,9 @@ for file in file_lst: # make sure gets sorted with 3?
         print(label)
         labels.append(label)
 
+cutouts = np.array(cutouts)
 print(cutouts.shape)
 '''
-#cutouts = np.array(cutouts)
 #cutouts = np.expand_dims(cutouts, axis = 4)
 
 
