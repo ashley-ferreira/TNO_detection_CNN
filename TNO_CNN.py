@@ -91,6 +91,27 @@ test_fraction = 0.05
 #
 # the cutouts array needs to include cutouts for both good and bad sources.
 
+def crop_center(img, cropx, cropy):
+    '''
+    Crops input image array around center to desired (cropx, cropx) size
+    
+    Taken from stack overflow: 
+    https://stackoverflow.com/questions/39382412/crop-center-portion-of-a-numpy-image
+    Parameters:    
+        img (arr): image to be cropped
+        cropx (int): full width of desired cutout
+        cropy (int): full height of desired cutout
+    Returns:
+        
+        cropped_img (arr): cropped image
+    '''
+    x,y = img.shape 
+    startx = x//2 - (cropx//2)
+    starty = y//2 - (cropy//2)
+    cropped_img = img[int(starty):int(starty+cropy), int(startx):int(startx+cropx)]
+
+    return cropped_img
+
 file_lst = sorted(os.listdir(cutout_path))#.sort()
 
 cutouts = []
@@ -106,26 +127,34 @@ for file in file_lst: # make sure gets sorted with 3?
     with fits.open(cutout_path+file) as han:
         img_data = han[1].data.astype('float64')
         img_header = han[0].header
-        
-    triplet.append(img_data)
+            
     print(img_data.shape)
+    (aa,bb) = img_data.shape
 
-    if count == 3:
-        triplet = []
-        count = 0
-        cutouts.append(triplet)
-        label = file[-6]
-        #print(label)
-        labels.append(label)
+    if aa > 240 and bb > 240:        
+        img_data = crop_center(img_data, 240/2, 240/2)    
+        triplet.append(img_data)
+
+        if count == 3:
+            triplet = []
+            count = 0
+            cutouts.append(triplet)
+            label = file[-6]
+            #print(label)
+            labels.append(label)
+    else:
+        continue # skip rest?
 
 cutouts = np.array(cutouts)
-print(cutouts.shape)
+print(cutouts.shape) # DIFF SIZES?? 
 '''
 #cutouts = np.expand_dims(cutouts, axis = 4)
 
 
 
 ### create a labels array with length n , with 1==good star, and 0==else
+
+# 50/50 SPLIT
 
 # REMOVE BACKGROUND
 
