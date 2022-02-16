@@ -130,7 +130,7 @@ for file in file_lst:
 
     count +=1   
     #print(count)   
-    img_data = crop_center(img_data, 130, 130) # skip smaller ones    
+    img_data = crop_center(img_data, 100, 100) # skip smaller ones, makes it smaller?    
     triplet.append(img_data)
     print(img_data.shape)
     if count == 3: # how does it not hit 3? does
@@ -145,6 +145,7 @@ for file in file_lst:
 
 labels = np.array(labels)
 cutouts = np.array(cutouts, dtype=object)
+print(cutouts.shape)
 cutouts = np.expand_dims(cutouts, axis=3) # wrong index?
 print(cutouts.shape) # more than 3 sometimes, someway to througout?
 
