@@ -5,13 +5,14 @@ import os
 import glob
 from pull_cutout_func import pull_cutout
 
-num_files = 10000
+num_files = 100000
 
 vos_path = 'vos:OSSOS/measure3/2015A-P/'
 
-str1 = 'vls ' + vos_path
-AP_15_dirs = os.popen(str1).read().split('\n')
 local_path = '/arc/projects/uvickbos/ML-MOD/OSSOS_datapull/2015-AP/'
+
+str1 = 'ls ' + local_path
+AP_15_dirs = os.popen(str1).read().split('\n')
 
 for dir in AP_15_dirs:
     # loop through all dirs in 2015A-P

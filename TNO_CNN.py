@@ -164,7 +164,34 @@ print(num_bad, 'bad cutouts')
 
 if num_good > num_bad: # equalize either way
     print('more good cutouts than bad')
-    sys.exit()
+    #sys.exit()
+
+if num_good < num_bad:
+    number_of_rows = bad_cutouts.shape[0]
+    random_indices = np.random.choice(number_of_rows, size=num_good, replace=False)
+    random_bad_cutouts = bad_cutouts[random_indices, :]
+    bad_cutouts = np.expand_dims(random_bad_cutouts, axis=3)
+    
+    label_bad = np.zeros(num_good)
+
+elif num_good > num_bad:
+    number_of_rows = good_cutouts.shape[0]
+    random_indices = np.random.choice(number_of_rows, size=num_bad, replace=False)
+    random_good_cutouts = good_cutouts[random_indices, :]
+    good_cutouts = np.expand_dims(random_good_cutouts, axis=3)
+    
+    label_good = np.ones(num_bad)
+
+
+# combine arrays 
+cutouts = np.concatenate((good_cutouts, bad_cutouts))
+# make label array for all
+labels = np.concatenate((label_good, label_bad))
+            
+print(str(len(cutouts)) + ' files used')
+
+with open(cutout_path + 'presaved_data.pickle', 'wb+') as han:
+    pickle.dump([cutouts, labels], han)
 
 '''
 for file in file_lst: # make sure gets sorted with 3?
