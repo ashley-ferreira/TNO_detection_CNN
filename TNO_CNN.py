@@ -71,7 +71,7 @@ cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts/'
 ####section for setting up some flags and hyperparameters
 batch_size = 16
 dropout_rate = 0.2
-test_fraction = 0.05
+test_fraction = 0.1
 num_epochs = 0
 
 
@@ -207,6 +207,7 @@ cutouts = np.concatenate((good_cutouts, bad_cutouts))
 labels = np.concatenate((good_labels, bad_labels))
             
 print(str(len(cutouts)) + ' files used')
+print(len(labels))
 
 with open(cutout_path + 'presaved_data.pickle', 'wb+') as han:
     pickle.dump([cutouts, labels], han)
@@ -228,44 +229,6 @@ cutouts[w_bad] = 0.0
 
 with open('regularization_data.pickle', 'wb+') as han:
     pickle.dump([std, mean], han)
-
-'''
-for file in file_lst: # make sure gets sorted with 3?
-    #print(file) # assuming 3 in a row, can put in dirs
-    # load image data
-    with fits.open(cutout_path+file) as han:
-        img_data = han[1].data.astype('float64')
-        img_header = han[0].header
-
-    (aa,bb) = img_data.shape
-    print(aa, bb)
-    if aa > 240 and bb > 240:  
-        count +=1      
-        img_data = crop_center(img_data, 240/2, 240/2)    
-        triplet.append(img_data)
-
-        if count == 3:
-            triplet = []
-            count = 0
-            cutouts.append(triplet)
-            label = file[-6]
-            #print(label)
-            labels.append(label)
-            check_total +=1 
-            print(check_total) # doesn't hit this?
-    else:
-        continue # skip rest? somehow
-
-labels = np.array(labels)
-cutouts = np.array(cutouts)
-print(cutouts.shape) # more than 3 sometimes
-
-#cutouts = np.expand_dims(cutouts, axis = 4)
-
-
-
-### create a labels array with length n , with 1==good star, and 0==else
-'''
 
 
 ### now divide the cutouts array into training and testing datasets.
