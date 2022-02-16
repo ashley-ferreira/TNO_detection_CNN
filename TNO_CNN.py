@@ -127,18 +127,23 @@ count = 0
 
 check_total = 0
 for file in file_lst: 
-    
-    with fits.open(cutout_path+file) as han:
-        img_data = han[1].data.astype('float64')
-        #img_header = han[0].header
+    try:
+        with fits.open(cutout_path+file) as han:
+            img_data = han[1].data.astype('float64')
+            #img_header = han[0].header
 
-    count +=1 
-       
-    img_data -= np.nanmedian(img_data)
-    img_data = crop_center(img_data, 120, 120) # skip smaller ones, makes it smaller?    
-    print(img_data.shape)
+        count +=1 
+        
+        img_data -= np.nanmedian(img_data)
+        img_data = crop_center(img_data, 120, 120) # skip smaller ones, makes it smaller?    
+        print(img_data.shape)
 
-    (aa,bb) = img_data.shape
+        (aa,bb) = img_data.shape
+
+    except Exception as e: 
+        print(e)
+        aa, bb = 0, 0
+
     if aa == 120 and bb == 120:
         triplet.append(img_data)
     else:
