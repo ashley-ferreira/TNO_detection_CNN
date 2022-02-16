@@ -72,7 +72,7 @@ cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts/'
 batch_size = 16
 dropout_rate = 0.2
 test_fraction = 0.1
-num_epochs = 0
+num_epochs = 10
 
 
 ####
@@ -303,7 +303,7 @@ Plot accuracy/loss versus epoch
 fig = pyl.figure(figsize=(10,3))
 
 ax1 = pyl.subplot(121)
-ax1.plot(classifier.history['acc'], color='darkslategray', linewidth=2)
+ax1.plot(classifier.history['accuracy'], color='darkslategray', linewidth=2)
 ax1.set_title('Model Accuracy')
 ax1.set_ylabel('Accuracy')
 ax1.set_xlabel('Epoch')
