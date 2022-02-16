@@ -248,7 +248,7 @@ for train_index, test_index in skf.split(cutouts, labels):
 # below is a network I used for KBO classification from image data.
 # you'll need to modify this to use 2D convolutions, rather than 3D.
 # the Maxpool lines will also need to use axa kernels rather than axaxa
-def convnet_model(input_shape, training_labels, dropout_rate=dropout_rate):
+def convnet_model(input_shape, training_labels, unique_labs, dropout_rate=dropout_rate):
 
     unique_labs = len(np.unique(training_labels))
 
@@ -277,22 +277,18 @@ def convnet_model(input_shape, training_labels, dropout_rate=dropout_rate):
 
     return model
 
-
+unique_labels = 2
+y_train_binary = keras.utils.np_utils.to_categorical(y_train, unique_labels)
 
 ### train the model!
-cn_model = convnet_model(X_train.shape[1:], y_train)
+cn_model = convnet_model(X_train.shape[1:], training_labels = y_train, unique_labs=unique_labels)
 cn_model.summary()
 
 cn_model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=["accuracy"])
 
-
-checkpointer = ModelCheckpoint('keras_convnet_model.h5', verbose=1)
-early_stopper = EarlyStopping(monitor='loss', patience=2, verbose=1)
-
 start = time.time()
 
-
-classifier = cn_model.fit(X_train, y_train, epochs=num_epochs, batch_size=batch_size, callbacks=[checkpointer])
+classifier = cn_model.fit(X_train, y_train, epochs=num_epochs, batch_size=batch_size)
 
 end = time.time()
 print('Process completed in', round(end-start, 2), ' seconds')
@@ -318,9 +314,5 @@ ax2.set_xlabel('Epoch')
 pyl.show()
 pyl.close()
 
-
-
-### get the model output classifications for the train and test sets
-preds_test = cn_model.predict(X_test, verbose=1)
-
+### get the model output classifications for the train set
 preds_train = cn_model.predict(X_train, verbose=1)
