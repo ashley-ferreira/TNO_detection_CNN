@@ -132,7 +132,7 @@ for file in file_lst: # make sure gets sorted with 3?
             
     print(img_data.shape)
     (aa,bb) = img_data.shape
-
+    print(aa, bb)
     if aa > 240 and bb > 240:        
         img_data = crop_center(img_data, 240/2, 240/2)    
         triplet.append(img_data)
@@ -145,7 +145,7 @@ for file in file_lst: # make sure gets sorted with 3?
             #print(label)
             labels.append(label)
             check_total +=1 
-            print(check_total)
+            print(check_total) # doesn't hit this?
     else:
         continue # skip rest?
 
