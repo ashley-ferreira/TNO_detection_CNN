@@ -92,7 +92,6 @@ test_fraction = 0.05
 # the cutouts array needs to include cutouts for both good and bad sources.
 
 file_lst = sorted(os.listdir(cutout_path))#.sort()
-print(file_lst) # this is none???
 
 cutouts = []
 labels = []
@@ -102,20 +101,21 @@ triplet = []
 count = 0
 for file in file_lst: # make sure gets sorted with 3?
     count +=1 
-    print(file) # assuming 3 in a row, can put in dirs
+    #print(file) # assuming 3 in a row, can put in dirs
     # load image data
     with fits.open(cutout_path+file) as han:
         img_data = han[1].data.astype('float64')
         img_header = han[0].header
         
     triplet.append(img_data)
+    print(img_data.shape)
 
     if count == 3:
         triplet = []
         count = 0
         cutouts.append(triplet)
         label = file[-6]
-        print(label)
+        #print(label)
         labels.append(label)
 
 cutouts = np.array(cutouts)
