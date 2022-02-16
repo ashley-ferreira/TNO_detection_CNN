@@ -30,7 +30,9 @@ for file in contents:
         real_exists = 0
         if real_file in contents:
             print('reals file found')
-            filesize = os.path.getsize(path + real_file)
+            #filesize = os.path.getsize(path + real_file)
+            filesize = os.popen('stat '+path+real_file)
+            print(filesize)
             if filesize != 0:
                 print('real_exists = 1')
                 real_exists = 1
