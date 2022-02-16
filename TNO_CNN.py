@@ -319,18 +319,23 @@ pyl.close()
 c = 0.5
 # plot test and train ones that don't agree with labels
 for i in range(len(preds_train)):
-    if y_train[i] == 0 and preds_train[i][1] > c:
-        (c1, c2) = zscale.get_limits(X_test[i])
-        normer = interval.ManualInterval(c1,c2)
-        pyl.title('labeled no TNO, predicted TNO at conf=' + str(preds_train[i][1]))
-        pyl.imshow(normer(X_train[i]))
-        pyl.show()
-        pyl.close()
+    triplet_Xtrain = X_train[i]
 
-    if y_train[i] == 1 and preds_train[i][0] > c:
-        (c1, c2) = zscale.get_limits(X_test[i])
-        normer = interval.ManualInterval(c1,c2)
-        pyl.title('labeled TNO, predicted no TNO at conf=' + str(preds_train[i][1]))
-        pyl.imshow(normer(X_train[i]))
-        pyl.show()
-        pyl.close()
+    for t in triplet_Xtrain:
+
+        if y_train[i] == 0 and preds_train[i][1] > c:
+            
+            (c1, c2) = zscale.get_limits(t)
+            normer = interval.ManualInterval(c1,c2)
+            pyl.title('labeled no TNO, predicted TNO at conf=' + str(preds_train[i][1]))
+            pyl.imshow(normer(t))
+            pyl.show()
+            pyl.close()
+
+        if y_train[i] == 1 and preds_train[i][0] > c:
+            (c1, c2) = zscale.get_limits(t)
+            normer = interval.ManualInterval(c1,c2)
+            pyl.title('labeled TNO, predicted no TNO at conf=' + str(preds_train[i][1]))
+            pyl.imshow(normer(t))
+            pyl.show()
+            pyl.close()
