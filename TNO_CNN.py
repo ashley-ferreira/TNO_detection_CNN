@@ -281,7 +281,7 @@ unique_labels = 2
 y_train_binary = keras.utils.np_utils.to_categorical(y_train, unique_labels)
 
 ### train the model!
-cn_model = convnet_model(X_train.shape[1:], training_labels = y_train, unique_labs=unique_labels)
+cn_model = convnet_model(X_train.shape[1:], training_labels = y_train_binary, unique_labs=unique_labels)
 cn_model.summary()
 
 cn_model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=["accuracy"])
