@@ -91,8 +91,8 @@ test_fraction = 0.05
 #
 # the cutouts array needs to include cutouts for both good and bad sources.
 
-file_lst = os.listdir(cutout_path).sort()
-print(file_lst)
+file_lst = os.listdir(cutout_path)#.sort()
+print(file_lst) # this is none???
 
 cutouts = []
 labels = []
