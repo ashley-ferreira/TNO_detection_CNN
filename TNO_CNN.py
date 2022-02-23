@@ -140,7 +140,6 @@ for file in file_lst:
             
             img_data -= np.nanmedian(img_data)
             img_data = crop_center(img_data, 120, 120) # skip smaller ones    
-            print(img_data.shape)
 
             (aa,bb) = img_data.shape
 
@@ -148,8 +147,9 @@ for file in file_lst:
             print(e)
             aa, bb = 0, 0
 
-        if aa == 120 and bb == 120:
+        if aa == 120 and bb == 120: # how do some get past this?
             triplet.append(img_data)
+            print(img_data.shape)
         else:
             triplet.append(np.zeros((120,120)))
         
