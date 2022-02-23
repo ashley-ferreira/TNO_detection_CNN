@@ -151,24 +151,27 @@ for file in file_lst:
             triplet.append(img_data)
             #print(img_data.shape)
         else:
-            null_arr = np.zeros((120,120))
+            #null_arr = np.zeros((120,120))
             #print(null_arr.shape)
-            triplet.append(null_arr)
+            #triplet.append(null_arr)
+            triplet = []
+            break
         
-    triplet = np.array(triplet)
-    print(triplet.shape)
-    label = int(sub_file[-6])
-    if label == 1:
-        good_cutouts.append(triplet)
-        good_labels.append(1) # can do after too
-    elif label == 0:
-        bad_cutouts.append(triplet)
-        bad_labels.append(0) 
+    if len(triplet) > 0:    
+        triplet = np.array(triplet)
+        print(triplet.shape)
+        label = int(sub_file[-6])
+        if label == 1:
+            good_cutouts.append(triplet)
+            good_labels.append(1) # can do after too
+        elif label == 0:
+            bad_cutouts.append(triplet)
+            bad_labels.append(0) 
 
-    check_total +=1 
-    triplet = []
-    count = 0
-    #print(check_total) 
+        check_total +=1 
+        triplet = []
+        count = 0
+        #print(check_total) 
 
 
 good_labels = np.array(good_labels)
