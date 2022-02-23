@@ -274,10 +274,10 @@ def convnet_model(input_shape, training_labels, unique_labs, dropout_rate=dropou
     #hidden layer 3 with Pooling
     model.add(Conv3D(filters=32, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
     model.add(Dropout(dropout_rate))
-    model.add(MaxPool3D(pool_size=(1, 2, 2), padding='valid'))
+    model.add(MaxPool3D(pool_size=(3, 4, 4), padding='valid')) # just for this last maxpool, pool_size = ()
 
     model.add(Flatten())
-    model.add(Dense(128, activation='sigmoid'))
+    model.add(Dense(64, activation='sigmoid')) # 128 -> 64
     model.add(Dense(128, activation='sigmoid'))
     model.add(Dense(unique_labs, activation='softmax'))
 
@@ -350,7 +350,7 @@ for i in range(len(preds_train)):
             
             #(c1, c2) = zscale.get_limits(t)
             #normer = interval.ManualInterval(c1,c2)
-            pyl.title('labeled no TNO, predicted TNO at conf=' + str(preds_train[i][1]) + 'triplet' + num)
+            pyl.title('labeled no TNO, predicted TNO at conf=' + str(preds_train[i][1]) + 'triplet' + str(num))
             pyl.imshow(t) # normer(t)
             pyl.show()
             pyl.close()
@@ -358,7 +358,7 @@ for i in range(len(preds_train)):
         if y_train[i] == 1 and preds_train[i][0] > c:
             #(c1, c2) = zscale.get_limits(t)
             #normer = interval.ManualInterval(c1,c2)
-            pyl.title('labeled TNO, predicted no TNO at conf=' + str(preds_train[i][1]) + 'triplet' + num)
+            pyl.title('labeled TNO, predicted no TNO at conf=' + str(preds_train[i][1]) + 'triplet' + str(num))
             pyl.imshow(t) # normer(t))
             pyl.show()
             pyl.close()
