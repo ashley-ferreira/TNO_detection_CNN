@@ -154,19 +154,18 @@ for file in file_lst:
             triplet.append(np.zeros((120,120)))
         
 
-        if count == 3: # how does it not hit 3? does
-            label = int(file[-6])
-            if label == 1:
-                good_cutouts.append(triplet)
-                good_labels.append(1) # can do after too
-            elif label == 0:
-                bad_cutouts.append(triplet)
-                bad_labels.append(0) 
+    label = int(sub_file[-6])
+    if label == 1:
+        good_cutouts.append(triplet)
+        good_labels.append(1) # can do after too
+    elif label == 0:
+        bad_cutouts.append(triplet)
+        bad_labels.append(0) 
 
-            check_total +=1 
-            triplet = []
-            count = 0
-            #print(check_total) 
+    check_total +=1 
+    triplet = []
+    count = 0
+    #print(check_total) 
 
 
 good_labels = np.array(good_labels)
