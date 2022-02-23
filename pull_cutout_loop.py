@@ -46,5 +46,6 @@ for ap in AP_dirs:
                         real_exists = 1
                 pull_cutout(file_path, file, real_exists)
 
-    except:
+    except Exception as e:
         print('ERROR with dir', ap)
+        print(e)
