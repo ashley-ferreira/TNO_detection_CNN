@@ -213,7 +213,7 @@ elif num_good > num_bad:
 print('CNN input shape', good_cutouts.shape)
 
 # combine arrays 
-cutouts = np.concatenate((good_cutouts, bad_cutouts))
+cutouts = np.concatenate((random_good_cutouts, random_bad_cutouts))
 # make label array for all
 labels = np.concatenate((good_labels, bad_labels))
             
