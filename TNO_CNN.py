@@ -231,7 +231,7 @@ cutouts /= std
 w_bad = np.where(np.isnan(cutouts))
 cutouts[w_bad] = 0.0
 
-with open('regularization_data_feb23.pickle', 'wb+') as han:
+with open(cutout_path + 'regularization_data_feb23.pickle', 'wb+') as han:
     pickle.dump([std, mean], han)
 
 
@@ -303,6 +303,9 @@ classifier = cn_model.fit(X_train, y_train_binary, epochs=num_epochs, batch_size
 
 end = time.time()
 print('Process completed in', round(end-start, 2), ' seconds')
+
+# save trained model 
+cn_model.save(cutout_path + 'model_' + str(end))
 
 ### get the model output classifications for the train set
 preds_train = cn_model.predict(X_train, verbose=1)
