@@ -155,7 +155,8 @@ for file in file_lst:
             #print(null_arr.shape)
             triplet.append(null_arr)
         
-
+    triplet = np.array(triplet)
+    print(triplet.shape)
     label = int(sub_file[-6])
     if label == 1:
         good_cutouts.append(triplet)
@@ -164,7 +165,6 @@ for file in file_lst:
         bad_cutouts.append(triplet)
         bad_labels.append(0) 
 
-    print(triplet.shape)
     check_total +=1 
     triplet = []
     count = 0
