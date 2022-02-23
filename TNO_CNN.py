@@ -129,49 +129,51 @@ check_total = 0
 for file in file_lst: 
     sub_file_lst = sorted(os.listdir(cutout_path+file))
 
-    for sub_file in sub_file_lst:
-        
-        try:
-            with fits.open(cutout_path+file+'/'+sub_file) as han:
-                img_data = han[1].data.astype('float64')
-                #img_header = han[0].header
+    if file.endswith(".cands.astrom"):
 
-            count +=1 
+        for sub_file in sub_file_lst:
             
-            img_data -= np.nanmedian(img_data)
-            img_data = crop_center(img_data, 120, 120) # skip smaller ones    
+            try:
+                with fits.open(cutout_path+file+'/'+sub_file) as han:
+                    img_data = han[1].data.astype('float64')
+                    #img_header = han[0].header
 
-            (aa,bb) = img_data.shape
+                count +=1 
+                
+                img_data -= np.nanmedian(img_data)
+                img_data = crop_center(img_data, 120, 120) # skip smaller ones    
 
-        except Exception as e: 
-            print(e)
-            aa, bb = 0, 0
+                (aa,bb) = img_data.shape
 
-        if aa == 120 and bb == 120: # how do some get past this?
-            triplet.append(img_data)
-            #print(img_data.shape)
-        else:
-            #null_arr = np.zeros((120,120))
-            #print(null_arr.shape)
-            #triplet.append(null_arr)
+            except Exception as e: 
+                print(e)
+                aa, bb = 0, 0
+
+            if aa == 120 and bb == 120: # how do some get past this?
+                triplet.append(img_data)
+                #print(img_data.shape)
+            else:
+                #null_arr = np.zeros((120,120))
+                #print(null_arr.shape)
+                #triplet.append(null_arr)
+                triplet = []
+                break
+            
+        if len(triplet) > 0:    
+            triplet = np.array(triplet)
+            print(triplet.shape)
+            label = int(sub_file[-6])
+            if label == 1:
+                good_cutouts.append(triplet)
+                good_labels.append(1) # can do after too
+            elif label == 0:
+                bad_cutouts.append(triplet)
+                bad_labels.append(0) 
+
+            check_total +=1 
             triplet = []
-            break
-        
-    if len(triplet) > 0:    
-        triplet = np.array(triplet)
-        print(triplet.shape)
-        label = int(sub_file[-6])
-        if label == 1:
-            good_cutouts.append(triplet)
-            good_labels.append(1) # can do after too
-        elif label == 0:
-            bad_cutouts.append(triplet)
-            bad_labels.append(0) 
-
-        check_total +=1 
-        triplet = []
-        count = 0
-        #print(check_total) 
+            count = 0
+            #print(check_total) 
 
 
 good_labels = np.array(good_labels)
