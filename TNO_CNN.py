@@ -127,9 +127,8 @@ count = 0
 
 check_total = 0
 for file in file_lst: 
-    sub_file_lst = sorted(os.listdir(cutout_path+file))
-
     if file.endswith(".cands.astrom"):
+        sub_file_lst = sorted(os.listdir(cutout_path+file))
 
         for sub_file in sub_file_lst:
             
