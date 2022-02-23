@@ -6,10 +6,12 @@ from astropy import units
 cutout_size = 140 # pixels as radius (hit minimum)
 
 import sys 
+import os
 
 from ossos.gui import logger
 
 logger.set_debug()
+storing_directory = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts_nofk/'
 
 
 def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+2-1/15AP+2-1_p36.measure3.cands.astrom', 
@@ -26,6 +28,9 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+2-1/15AP+2-1_p36.
 
     sources = parser.parse(full_filename)
 
+    file_dir = filename + '/'
+    os.mkdir(storing_directory + file_dir)
+
     for source in sources.get_sources()[1:2]:
         for i,reading in enumerate(source.get_readings()):
             reading.uncertainty_ellipse.a = cutout_size*0.185/2/2.5 * units.arcsecond
@@ -33,7 +38,7 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+2-1/15AP+2-1_p36.
             print(reading.uncertainty_ellipse)
             cutout = dlm.download_cutout(reading, needs_apcor=True)
             print(cutout.hdulist)
-            cutout.hdulist.writeto('/arc/projects/uvickbos/ML-MOD/140_pix_cutouts_nofk/'+ filename + str(i) + '_label=' + str(real_exists) + '.fits', overwrite=True)
+            cutout.hdulist.writeto(storing_directory + file_dir + filename + str(i) + '_label=' + str(real_exists) + '.fits', overwrite=True)
             mjd_obs = float(cutout.fits_header.get('MJD-OBS'))
             exptime = float(cutout.fits_header.get('EXPTIME'))
             print(f'Exposure taken at: {mjd_obs} with exposure time {exptime}')
