@@ -211,7 +211,7 @@ elif num_good > num_bad:
 # combine arrays 
 cutouts = np.concatenate((random_good_cutouts, random_bad_cutouts))
 cutouts = np.expand_dims(cutouts, axis=4)
-print('CNN input shape', cutouts.shape)
+print('CNN total data shape', cutouts.shape)
 
 # make label array for all
 labels = np.concatenate((good_labels, bad_labels))
@@ -253,28 +253,28 @@ for train_index, test_index in skf.split(cutouts, labels):
 # you'll need to modify this to use 2D convolutions, rather than 3D.
 # the Maxpool lines will also need to use axa kernels rather than axaxa
 def convnet_model(input_shape, training_labels, unique_labs, dropout_rate=dropout_rate):
-    print('CNN total data shape', input_shape)
+    print('CNN input shape', input_shape)
 
     unique_labs = len(np.unique(training_labels))
 
     model = Sequential()
 
     #hidden layer 1
-    model.add(Conv3D(filters=32, kernel_size=(3, 3, 1), input_shape=input_shape, activation='relu', padding='valid'))
+    model.add(Conv3D(filters=32, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
     model.add(Dropout(dropout_rate))
-    model.add(MaxPool3D(pool_size=(3, 3, 1), padding='valid'))
+    model.add(MaxPool3D(pool_size=(1, 2, 2), padding='valid'))
 
     #hidden layer 2 with Pooling
-    model.add(Conv3D(filters=32, kernel_size=(3, 3, 1), input_shape=input_shape, activation='relu', padding='valid'))
+    model.add(Conv3D(filters=32, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
     model.add(Dropout(dropout_rate))
-    model.add(MaxPool3D(pool_size=(3, 3, 1), padding='valid'))
+    model.add(MaxPool3D(pool_size=(1, 2, 2), padding='valid'))
 
     model.add(BatchNormalization())
 
     #hidden layer 3 with Pooling
-    model.add(Conv3D(filters=32, kernel_size=(3, 3, 1), input_shape=input_shape, activation='relu', padding='valid'))
+    model.add(Conv3D(filters=32, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
     model.add(Dropout(dropout_rate))
-    model.add(MaxPool3D(pool_size=(3, 3, 1), padding='valid'))
+    model.add(MaxPool3D(pool_size=(1, 2, 2), padding='valid'))
 
     model.add(Flatten())
     model.add(Dense(128, activation='sigmoid'))
