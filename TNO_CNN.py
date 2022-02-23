@@ -72,7 +72,7 @@ cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts_nofk/'
 batch_size = 16
 dropout_rate = 0.2
 test_fraction = 0.05
-num_epochs = 1
+num_epochs = 10
 
 
 ####
