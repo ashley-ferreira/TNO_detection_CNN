@@ -343,17 +343,17 @@ for i in range(len(preds_train)):
 
         if y_train[i] == 0 and preds_train[i][1] > c:
             
-            (c1, c2) = zscale.get_limits(t)
-            normer = interval.ManualInterval(c1,c2)
+            #(c1, c2) = zscale.get_limits(t)
+            #normer = interval.ManualInterval(c1,c2)
             pyl.title('labeled no TNO, predicted TNO at conf=' + str(preds_train[i][1]))
-            pyl.imshow(normer(t))
+            pyl.imshow(t) # normer(t)
             pyl.show()
             pyl.close()
 
         if y_train[i] == 1 and preds_train[i][0] > c:
-            (c1, c2) = zscale.get_limits(t)
-            normer = interval.ManualInterval(c1,c2)
+            #(c1, c2) = zscale.get_limits(t)
+            #normer = interval.ManualInterval(c1,c2)
             pyl.title('labeled TNO, predicted no TNO at conf=' + str(preds_train[i][1]))
-            pyl.imshow(normer(t))
+            pyl.imshow(t) # normer(t))
             pyl.show()
             pyl.close()
