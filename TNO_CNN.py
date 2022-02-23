@@ -210,10 +210,11 @@ elif num_good > num_bad:
 
 bad_cutouts = np.expand_dims(random_bad_cutouts, axis=4)
 good_cutouts = np.expand_dims(random_good_cutouts, axis=4)
-print('CNN input shape', good_cutouts.shape)
 
 # combine arrays 
 cutouts = np.concatenate((random_good_cutouts, random_bad_cutouts))
+print('CNN input shape', cutouts.shape)
+
 # make label array for all
 labels = np.concatenate((good_labels, bad_labels))
             
@@ -254,6 +255,7 @@ for train_index, test_index in skf.split(cutouts, labels):
 # you'll need to modify this to use 2D convolutions, rather than 3D.
 # the Maxpool lines will also need to use axa kernels rather than axaxa
 def convnet_model(input_shape, training_labels, unique_labs, dropout_rate=dropout_rate):
+    print('CNN input shape', input_shape)
 
     unique_labs = len(np.unique(training_labels))
 
