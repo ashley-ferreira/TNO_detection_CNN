@@ -213,7 +213,7 @@ labels = np.concatenate((good_labels, bad_labels))
 print(str(len(cutouts)) + ' files used')
 print(len(labels))
 
-with open(cutout_path + 'presaved_data.pickle', 'wb+') as han:
+with open(cutout_path + 'presaved_data_feb23.pickle', 'wb+') as han:
     pickle.dump([cutouts, labels], han)
 
 # REGULARIZE
@@ -225,7 +225,7 @@ cutouts /= std
 w_bad = np.where(np.isnan(cutouts))
 cutouts[w_bad] = 0.0
 
-with open('regularization_data.pickle', 'wb+') as han:
+with open('regularization_data_feb23.pickle', 'wb+') as han:
     pickle.dump([std, mean], han)
 
 
