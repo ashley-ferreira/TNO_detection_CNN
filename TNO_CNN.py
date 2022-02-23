@@ -69,7 +69,7 @@ cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts_nofk/'
 
 
 ####section for setting up some flags and hyperparameters
-batch_size = 16
+batch_size = 16 # increase
 dropout_rate = 0.2
 test_fraction = 0.05
 num_epochs = 10
@@ -348,17 +348,17 @@ for i in range(len(preds_train)):
 
         if y_train[i] == 0 and preds_train[i][1] > c:
             
-            #(c1, c2) = zscale.get_limits(t)
-            #normer = interval.ManualInterval(c1,c2)
+            (c1, c2) = zscale.get_limits(t)
+            normer = interval.ManualInterval(c1,c2)
             pyl.title('labeled no TNO, predicted TNO at conf=' + str(preds_train[i][1]) + 'triplet' + str(num))
-            pyl.imshow(t) # normer(t)
+            pyl.imshow(normer(t))
             pyl.show()
             pyl.close()
 
         if y_train[i] == 1 and preds_train[i][0] > c:
-            #(c1, c2) = zscale.get_limits(t)
-            #normer = interval.ManualInterval(c1,c2)
+            (c1, c2) = zscale.get_limits(t)
+            normer = interval.ManualInterval(c1,c2)
             pyl.title('labeled TNO, predicted no TNO at conf=' + str(preds_train[i][1]) + 'triplet' + str(num))
-            pyl.imshow(t) # normer(t))
+            pyl.imshow(normer(t))
             pyl.show()
             pyl.close()
