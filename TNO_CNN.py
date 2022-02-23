@@ -253,7 +253,7 @@ for train_index, test_index in skf.split(cutouts, labels):
 # you'll need to modify this to use 2D convolutions, rather than 3D.
 # the Maxpool lines will also need to use axa kernels rather than axaxa
 def convnet_model(input_shape, training_labels, unique_labs, dropout_rate=dropout_rate):
-    print('CNN input shape', input_shape)
+    print('CNN total data shape', input_shape)
 
     unique_labs = len(np.unique(training_labels))
 
@@ -262,7 +262,7 @@ def convnet_model(input_shape, training_labels, unique_labs, dropout_rate=dropou
     #hidden layer 1
     model.add(Conv3D(filters=32, kernel_size=(3, 3, 1), input_shape=input_shape, activation='relu', padding='valid'))
     model.add(Dropout(dropout_rate))
-    model.add(MaxPool3D(pool_size=(3, 3, 1), padding='valid')) # padding='valid'
+    model.add(MaxPool3D(pool_size=(3, 3, 1), padding='valid'))
 
     #hidden layer 2 with Pooling
     model.add(Conv3D(filters=32, kernel_size=(3, 3, 1), input_shape=input_shape, activation='relu', padding='valid'))
@@ -286,6 +286,10 @@ def convnet_model(input_shape, training_labels, unique_labs, dropout_rate=dropou
 unique_labels = 2
 y_train_binary = keras.utils.np_utils.to_categorical(y_train, unique_labels)
 y_test_binary = keras.utils.np_utils.to_categorical(y_test, unique_labels)
+
+
+print('training input shape (X_train.shape[1:])', X_train.shape[1:])
+print('model fit input shape (X_train.shape)', X_train.shape)
 
 ### train the model!
 cn_model = convnet_model(X_train.shape[1:], training_labels = y_train_binary, unique_labs=unique_labels)
