@@ -72,7 +72,7 @@ cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts_nofk/'
 batch_size = 16
 dropout_rate = 0.2
 test_fraction = 0.1
-num_epochs = 10
+num_epochs = 1
 
 
 ####
@@ -333,7 +333,7 @@ pyl.show()
 pyl.close()
 
 c = 0.5
-X_train = np.squeeze(X_train, axis=3)
+X_train = np.squeeze(X_train, axis=4)
 # plot test and train ones that don't agree with labels
 for i in range(len(preds_train)):
     triplet_Xtrain = X_train[i]
