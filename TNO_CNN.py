@@ -65,7 +65,7 @@ zscale = ZScaleInterval()
 # keras.utils.set_random_seed(1234)
 np.random.seed(432)
 
-cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts/'
+cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts_nofk/'
 
 
 ####section for setting up some flags and hyperparameters
@@ -127,42 +127,46 @@ count = 0
 
 check_total = 0
 for file in file_lst: 
-    try:
-        with fits.open(cutout_path+file) as han:
-            img_data = han[1].data.astype('float64')
-            #img_header = han[0].header
+    sub_file_lst = sorted(os.listdir(cutout_path+file))
 
-        count +=1 
+    for sub_file in sub_file_lst:
         
-        img_data -= np.nanmedian(img_data)
-        img_data = crop_center(img_data, 120, 120) # skip smaller ones    
-        print(img_data.shape)
+        try:
+            with fits.open(cutout_path+file+'/'+sub_file) as han:
+                img_data = han[1].data.astype('float64')
+                #img_header = han[0].header
 
-        (aa,bb) = img_data.shape
+            count +=1 
+            
+            img_data -= np.nanmedian(img_data)
+            img_data = crop_center(img_data, 120, 120) # skip smaller ones    
+            print(img_data.shape)
 
-    except Exception as e: 
-        print(e)
-        aa, bb = 0, 0
+            (aa,bb) = img_data.shape
 
-    if aa == 120 and bb == 120:
-        triplet.append(img_data)
-    else:
-        triplet.append(np.zeros((120,120)))
-    
+        except Exception as e: 
+            print(e)
+            aa, bb = 0, 0
 
-    if count == 3: # how does it not hit 3? does
-        label = int(file[-6])
-        if label == 1:
-            good_cutouts.append(triplet)
-            good_labels.append(1) # can do after too
-        elif label == 0:
-            bad_cutouts.append(triplet)
-            bad_labels.append(0) 
+        if aa == 120 and bb == 120:
+            triplet.append(img_data)
+        else:
+            triplet.append(np.zeros((120,120)))
+        
 
-        check_total +=1 
-        triplet = []
-        count = 0
-        #print(check_total) 
+        if count == 3: # how does it not hit 3? does
+            label = int(file[-6])
+            if label == 1:
+                good_cutouts.append(triplet)
+                good_labels.append(1) # can do after too
+            elif label == 0:
+                bad_cutouts.append(triplet)
+                bad_labels.append(0) 
+
+            check_total +=1 
+            triplet = []
+            count = 0
+            #print(check_total) 
 
 
 good_labels = np.array(good_labels)
@@ -200,6 +204,7 @@ elif num_good > num_bad:
 
 bad_cutouts = np.expand_dims(random_bad_cutouts, axis=4)
 good_cutouts = np.expand_dims(random_good_cutouts, axis=4)
+print('CNN input shape', good_cutouts.shape)
 
 # combine arrays 
 cutouts = np.concatenate((good_cutouts, bad_cutouts))
@@ -251,19 +256,19 @@ def convnet_model(input_shape, training_labels, unique_labs, dropout_rate=dropou
     #hidden layer 1
     model.add(Conv3D(filters=16, kernel_size=(3, 3, 1), input_shape=input_shape, activation='relu', padding='same'))
     model.add(Dropout(dropout_rate))
-    model.add(MaxPool3D(pool_size=(2,2,2), padding='same')) # padding='valid'
+    model.add(MaxPool3D(pool_size=(2,2,2), padding='valid')) # padding='valid'
 
     #hidden layer 2 with Pooling
     model.add(Conv3D(filters=16, kernel_size=(3, 3, 1), input_shape=input_shape, activation='relu', padding='same'))
     model.add(Dropout(dropout_rate))
-    model.add(MaxPool3D(pool_size=(2, 2, 2), padding='same'))
+    model.add(MaxPool3D(pool_size=(2, 2, 2), padding='valid'))
 
     model.add(BatchNormalization())
 
     #hidden layer 3 with Pooling
     model.add(Conv3D(filters=8, kernel_size=(3, 3, 1), input_shape=input_shape, activation='relu', padding='same'))
     model.add(Dropout(dropout_rate))
-    model.add(MaxPool3D(pool_size=(2, 2, 2), padding='same'))
+    model.add(MaxPool3D(pool_size=(2, 2, 2), padding='valid'))
 
     model.add(Flatten())
     model.add(Dense(32, activation='sigmoid'))
