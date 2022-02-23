@@ -208,11 +208,9 @@ elif num_good > num_bad:
     
     good_labels = np.ones(num_bad)
 
-bad_cutouts = np.expand_dims(random_bad_cutouts, axis=4)
-good_cutouts = np.expand_dims(random_good_cutouts, axis=4)
-
 # combine arrays 
 cutouts = np.concatenate((random_good_cutouts, random_bad_cutouts))
+cutouts = np.expand_dims(cutouts, axis=4)
 print('CNN input shape', cutouts.shape)
 
 # make label array for all
