@@ -7,11 +7,11 @@ from pull_cutout_func import pull_cutout
 
 num_files = 10000
 
-vos_path = 'vos:OSSOS/measure3/2015A-P/15AP+0+1/'
-local_path = '/arc/projects/uvickbos/ML-MOD/OSSOS_datapull/2015A-P_automatic/15AP+0+1/'
+vos_path = 'vos:OSSOS/measure3/2015A-P/15AP+0+0/'
+local_path = '/arc/projects/uvickbos/ML-MOD/OSSOS_datapull/2015A-P_automatic/15AP+0+0/'
 
-# loop through all dirs in 2015A-P
-contents = os.popen('vls vos:OSSOS/measure3/2015A-P/15AP+0+1/').read().split('\n')
+# loop through all dirs in 2015A-P later
+contents = os.popen('vls vos:OSSOS/measure3/2015A-P/15AP+0+0/').read().split('\n')
 
 count = 0
 for file in contents: 
@@ -19,6 +19,9 @@ for file in contents:
     count +=1 
     if count > num_files:
         break
+
+    elif file[:2] == 'fk': # TAKING THEM OUT FOR NOW, move into fo loop if not
+        print('fk file, excluding for now')
 
     elif file.endswith(".cands.astrom"):
         print('this is a .cans.astrom file')
