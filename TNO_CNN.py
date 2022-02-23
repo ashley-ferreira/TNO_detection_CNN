@@ -152,7 +152,7 @@ for file in file_lst:
             #print(img_data.shape)
         else:
             null_arr = np.zeros((120,120))
-            print(null_arr.shape)
+            #print(null_arr.shape)
             triplet.append(null_arr)
         
 
@@ -164,6 +164,7 @@ for file in file_lst:
         bad_cutouts.append(triplet)
         bad_labels.append(0) 
 
+    print(triplet.shape)
     check_total +=1 
     triplet = []
     count = 0
