@@ -149,9 +149,11 @@ for file in file_lst:
 
         if aa == 120 and bb == 120: # how do some get past this?
             triplet.append(img_data)
-            print(img_data.shape)
+            #print(img_data.shape)
         else:
-            triplet.append(np.zeros((120,120)))
+            null_arr = np.zeros((120,120))
+            print(null_arr.shape)
+            triplet.append(null_arr)
         
 
     label = int(sub_file[-6])
