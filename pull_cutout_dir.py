@@ -30,8 +30,8 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
 
     for d in main_dirs:
         try: 
-            vos_path_d = vos_path + '/' + d
-            local_path_d = local_path + '/' +  d
+            vos_path_d = vos_path + d
+            local_path_d = local_path +  d
 
             str1 = 'ls ' + local_path_d
             dirs = os.popen(str1).read().split('\n')
