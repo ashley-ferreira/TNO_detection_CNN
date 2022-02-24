@@ -18,9 +18,12 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
     print(block)
 
     # can set this in loop too
-    main_dirs = [year+sem+block+'+0+1/',year+sem+block+'+0-1/',year+sem+block+'+0-2/',year+sem+block+'+1+0/',year+sem+block+'+1+1/',year+sem+block+'+1-1/',year+sem+block+'+1-2/',year+sem+block+'+2+0/', \
-        year+sem+block+'+2+1/',year+sem+block+'+2-1/',year+sem+block+'+2-2/',year+sem+block+'-1+0/',year+sem+block+'-1+1/',year+sem+block+'-1-1/',year+sem+block+'-1-2/',year+sem+block+'-2+0/',year+sem+block+'-2+1/', \
-        year+sem+block+'-2-1/',year+sem+block+'-2-2/']
+    # main_dirs = [year+sem+block+'+0+1/',year+sem+block+'+0-1/',year+sem+block+'+0-2/',year+sem+block+'+1+0/',year+sem+block+'+1+1/',year+sem+block+'+1-1/',year+sem+block+'+1-2/',year+sem+block+'+2+0/', \
+    #    year+sem+block+'+2+1/',year+sem+block+'+2-1/',year+sem+block+'+2-2/',year+sem+block+'-1+0/',year+sem+block+'-1+1/',year+sem+block+'-1-1/',year+sem+block+'-1-2/',year+sem+block+'-2+0/',year+sem+block+'-2+1/', \
+    #    year+sem+block+'-2-1/',year+sem+block+'-2-2/']
+    # list all dirs inside instead of this
+    str0 = 'ls ' + local_path +  cutout_dir
+    main_dirs = os.popen(str2).read().split('\n')
 
     for d in main_dirs:
         try: 
