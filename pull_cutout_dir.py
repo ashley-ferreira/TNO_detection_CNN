@@ -5,13 +5,24 @@ import os
 import glob
 from pull_cutout_func import pull_cutout
 
-AP15_dirs = ['15AP+0+1/','15AP+0-1/','15AP+0-2/','15AP+1+0/','15AP+1+1/','15AP+1-1/','15AP+1-2/','15AP+2+0/', \
-        '15AP+2+1/','15AP+2-1/','15AP+2-2/','15AP-1+0/','15AP-1+1/','15AP-1-1/','15AP-1-2/','15AP-2+0/','15AP-2+1/', \
-        '15AP-2-1/','15AP-2-/','15AP-2-2/']
 
-def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000, main_dir=AP15_dirs):
 
-    for d in main_dir:
+def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
+
+    # this parsing will only work for normal named ones
+    year = cutout_dir[2:4]
+    print(year)
+    sem = cutout_dir[4:5]
+    print(sem)
+    block = cutout_dir[6:7]
+    print(block)
+
+    # can set this in loop too
+    main_dirs = [year+sem+block+'+0+1/',year+sem+block+'+0-1/',year+sem+block+'+0-2/',year+sem+block+'+1+0/',year+sem+block+'+1+1/',year+sem+block+'+1-1/',year+sem+block+'+1-2/',year+sem+block+'+2+0/', \
+        year+sem+block+'+2+1/',year+sem+block+'+2-1/',year+sem+block+'+2-2/',year+sem+block+'-1+0/',year+sem+block+'-1+1/',year+sem+block+'-1-1/',year+sem+block+'-1-2/',year+sem+block+'-2+0/',year+sem+block+'-2+1/', \
+        year+sem+block+'-2-1/',year+sem+block+'-2-2/']
+
+    for d in main_dirs:
         try: 
             vos_path = 'vos:OSSOS/measure3/' + cutout_dir + d
             local_path = '/arc/projects/uvickbos/ML-MOD/OSSOS_datapull/' + cutout_dir + d
@@ -56,3 +67,7 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000, main_dir=AP15_d
         except Exception as e:
             print('ERROR with dir', d)
             print(e)
+
+list_x = ['2015B-D_automtic', '2013A-O_automatic', '2015A-M_automatic']
+for x in list_x:
+    pull_dir_loop(x)

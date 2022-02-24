@@ -72,7 +72,7 @@ cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts_nofk/'
 batch_size = 16 # increase
 dropout_rate = 0.2
 test_fraction = 0.05
-num_epochs = 10
+num_epochs = 20
 
 
 ####
@@ -310,7 +310,7 @@ cn_model.save(cutout_path + 'model_' + str(end))
 ### get the model output classifications for the train set
 preds_train = cn_model.predict(X_train, verbose=1)
 #preds_test = cn_model.predict(X_test, verbose=1)
-
+help(cn_model.evaluate)
 eval_test = cn_model.evaluate(X_test, y_test_binary, batch_size=batch_size, verbose=1)
 print("test loss, test acc:", eval_test)
 
@@ -362,3 +362,6 @@ for i in range(len(preds_train)):
             pyl.imshow(normer(t))
             pyl.show()
             pyl.close()
+
+
+# save triplet names and laod in ds9 to blink through
