@@ -24,7 +24,7 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
     # list all dirs inside instead of this
     vos_path = 'vos:OSSOS/measure3/' + cutout_dir
     local_path = '/arc/projects/uvickbos/ML-MOD/OSSOS_datapull/' + cutout_dir
-    main_dirs = filter(os.path.isdir, os.listdir(local_path +  cutout_dir))
+    main_dirs = filter(os.path.isdir, os.listdir(local_path))
 
     for d in main_dirs:
         try: 
