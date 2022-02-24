@@ -32,7 +32,7 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
 
             for dir in dirs:
                 print(dir)
-                str2 = 'vls vos:OSSOS/measure3/' + cutout_dir + dir
+                str2 = 'ls ' + local_path +  cutout_dir + dir
                 contents = os.popen(str2).read().split('\n')
 
                 count = 0
