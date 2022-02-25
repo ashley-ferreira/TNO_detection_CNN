@@ -11,7 +11,7 @@ import os
 from ossos.gui import logger
 
 logger.set_debug()
-storing_directory = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts_nofk/'
+storing_directory = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts_just_p/'
 
 
 def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+2-1/15AP+2-1_p36.measure3.cands.astrom', 
