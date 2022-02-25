@@ -39,8 +39,8 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
             for dir in dirs:
                 #print(dir)
                 str2 = 'ls ' + local_path_d + '/' + dir
-                contents = os.popen(str2).read().split('\n')
-                print(contents)
+                #contents = os.popen(str2).read().split('\n')
+                #print(contents)
 
                 count = 0
                 for file in contents: 
@@ -62,20 +62,20 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
                         #print('searching for .reals.astrom, found')
                         print(real_file_cut)
                         real_exists = 0
-                        if real_file_cut in contents:
+                        #if real_file_cut in contents:
                             #print('reals file found')
                             
-                            filesize = os.path.getsize(real_file)
-                            print(filesize)
-                            #filesize = os.path.getsize(str(local_path_d) + '/' + str(dir) + '/' + str(real_file))
-                            #filesize = os.popen('stat '+path+real_file)
-                            #print(filesize)
-                            if filesize != 0:
-                                count +=1
-                                print('real_exists = 1')
-                                real_exists = 1
-                                # pull_cutout(local_path_d + '/' + dir + '/', file, real_exists)
-                            pull_cutout(str(file_path), str(file), real_exists)
+                        filesize = os.path.getsize(real_file)
+                        print(filesize)
+                        #filesize = os.path.getsize(str(local_path_d) + '/' + str(dir) + '/' + str(real_file))
+                        #filesize = os.popen('stat '+path+real_file)
+                        #print(filesize)
+                        if filesize != 0:
+                            count +=1
+                            print('real_exists = 1')
+                            real_exists = 1
+                            # pull_cutout(local_path_d + '/' + dir + '/', file, real_exists)
+                        pull_cutout(str(file_path), str(file), real_exists)
 
 
         except Exception as e:
