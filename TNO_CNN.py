@@ -127,7 +127,7 @@ count = 0
 
 check_total = 0
 for file in file_lst: 
-    if file.endswith(".cands.astrom"):
+    if file.endswith(".cands.astrom") and file[9] == 'p':
         sub_file_lst = sorted(os.listdir(cutout_path+file))
 
         for sub_file in sub_file_lst:
@@ -219,7 +219,7 @@ labels = np.concatenate((good_labels, bad_labels))
 print(str(len(cutouts)) + ' files used')
 print(len(labels))
 
-with open(cutout_path + 'presaved_data_feb23.pickle', 'wb+') as han:
+with open(cutout_path + 'presaved_data_feb35_ponly.pickle', 'wb+') as han:
     pickle.dump([cutouts, labels], han)
 
 # REGULARIZE
@@ -231,7 +231,7 @@ cutouts /= std
 w_bad = np.where(np.isnan(cutouts))
 cutouts[w_bad] = 0.0
 
-with open(cutout_path + 'regularization_data_feb23.pickle', 'wb+') as han:
+with open(cutout_path + 'regularization_data_ponly.pickle', 'wb+') as han:
     pickle.dump([std, mean], han)
 
 
