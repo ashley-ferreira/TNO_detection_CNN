@@ -60,7 +60,7 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
 
                 elif file.endswith(".cands.astrom") and file_cut[9] == 'p': # make sure this doesn't skip some
                     print('this is a .cans.astrom file')
-                    file_path = os.path.join(str(vos_path_d)  + '/' + str(dir) # + '/' #+ str(file))
+                    file_path = os.path.join(str(vos_path_d)  + '/' + str(dir)) # + '/' #+ str(file))
                     #print(file_path)
                     real_file = file.replace('.cands.astrom', '.reals.astrom') 
                     real_file_cut = real_file.rsplit('/', 1)[-1]
