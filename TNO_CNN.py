@@ -69,9 +69,9 @@ cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts_nofk/'
 
 
 ####section for setting up some flags and hyperparameters
-batch_size = 16 # increase
+batch_size = 16 # increase with more data
 dropout_rate = 0.2
-test_fraction = 0.05
+test_fraction = 0.15
 num_epochs = 20
 
 
