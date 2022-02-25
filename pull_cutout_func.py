@@ -28,8 +28,11 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+2-1/15AP+2-1_p36.
 
     sources = parser.parse(filename) #full_filename)
 
+    filename = filename.rsplit('/', 1)[-1]
+
     file_dir = filename + '/'
-    os.mkdir(storing_directory + file_dir)
+    os.mkdir(storing_directory + 
+    file_dir)
 
     for source in sources.get_sources()[1:2]:
         for i,reading in enumerate(source.get_readings()):
