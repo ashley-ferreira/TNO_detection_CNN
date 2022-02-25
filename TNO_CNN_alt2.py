@@ -65,7 +65,7 @@ zscale = ZScaleInterval()
 # keras.utils.set_random_seed(1234)
 np.random.seed(432)
 
-cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts_nofk/'
+cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts_only_p/'
 
 
 ####section for setting up some flags and hyperparameters
