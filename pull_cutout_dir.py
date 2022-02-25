@@ -53,7 +53,7 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
 
                     elif file.endswith(".cands.astrom"):
                         print('this is a .cans.astrom file')
-                        file_path = os.path.join(vos_path_d  + '/' + dir + '/', file)
+                        file_path = os.path.join(str(vos_path_d)  + '/' + str(dir) + '/' + str(file))
                         #print(file_path)
                         real_file = file.replace('.cands.astrom', '.reals.astrom')
                         print('searching for .reals.astrom, found')
@@ -61,7 +61,7 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
                         real_exists = 0
                         if real_file in contents:
                             print('reals file found')
-                            filesize = os.path.getsize(local_path_d + '/' + dir + '/' + real_file)
+                            filesize = os.path.getsize(str(local_path_d) + '/' + str(dir) + '/' + str(real_file))
                             #filesize = os.popen('stat '+path+real_file)
                             #print(filesize)
                             if filesize != 0:
@@ -69,7 +69,7 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
                                 print('real_exists = 1')
                                 real_exists = 1
                         # pull_cutout(local_path_d + '/' + dir + '/', file, real_exists)
-                        pull_cutout(file_path, real_exists)
+                        pull_cutout(str(file_path), str(file), real_exists)
 
         except Exception as e:
             print('ERROR with dir', d)
