@@ -261,12 +261,12 @@ def convnet_model(input_shape, training_labels, unique_labs, dropout_rate=dropou
     model = Sequential()
 
     #hidden layer 1
-    model.add(Conv3D(filters=32, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
+    model.add(Conv3D(filters=8, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
     model.add(Dropout(dropout_rate))
     model.add(MaxPool3D(pool_size=(1, 2, 2), padding='valid'))
 
     #hidden layer 2 with Pooling
-    model.add(Conv3D(filters=32, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
+    model.add(Conv3D(filters=16, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
     model.add(Dropout(dropout_rate))
     model.add(MaxPool3D(pool_size=(1, 2, 2), padding='valid'))
 
@@ -279,7 +279,9 @@ def convnet_model(input_shape, training_labels, unique_labs, dropout_rate=dropou
 
     model.add(Flatten())
     model.add(Dense(64, activation='sigmoid')) # 128 -> 64
+    model.add(Dropout(dropout_rate))
     model.add(Dense(128, activation='sigmoid'))
+    model.add(Dropout(dropout_rate))
     model.add(Dense(unique_labs, activation='softmax'))
 
     return model
