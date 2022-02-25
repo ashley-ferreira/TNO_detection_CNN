@@ -62,7 +62,10 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
                         real_exists = 0
                         if real_file in contents:
                             #print('reals file found')
-                            filesize = os.path.getsize(str(real_file))
+                            
+                            filesize = os.path.getsize(real_file)
+                            print(real_file)
+                            print(filesize)
                             #filesize = os.path.getsize(str(local_path_d) + '/' + str(dir) + '/' + str(real_file))
                             #filesize = os.popen('stat '+path+real_file)
                             #print(filesize)
@@ -70,8 +73,9 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
                                 count +=1
                                 print('real_exists = 1')
                                 real_exists = 1
-                        # pull_cutout(local_path_d + '/' + dir + '/', file, real_exists)
-                        pull_cutout(str(file_path), str(file), real_exists)
+                                # pull_cutout(local_path_d + '/' + dir + '/', file, real_exists)
+                            pull_cutout(str(file_path), str(file), real_exists)
+
 
         except Exception as e:
             print('ERROR with dir', d)
