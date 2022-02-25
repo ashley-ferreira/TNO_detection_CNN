@@ -71,7 +71,7 @@ cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts_nofk/'
 ####section for setting up some flags and hyperparameters
 batch_size = 16 # increase with more data
 dropout_rate = 0.2
-test_fraction = 0.15
+test_fraction = 0.5
 num_epochs = 20
 
 
@@ -128,6 +128,7 @@ count = 0
 check_total = 0
 for file in file_lst: 
     if file.endswith(".cands.astrom") and file[9] == 'p':
+        print(file)
         sub_file_lst = sorted(os.listdir(cutout_path+file))
 
         for sub_file in sub_file_lst:
@@ -160,7 +161,7 @@ for file in file_lst:
             
         if len(triplet) > 0:    
             triplet = np.array(triplet)
-            print(triplet.shape)
+            #print(triplet.shape)
             label = int(sub_file[-6])
             if label == 1:
                 good_cutouts.append(triplet)
@@ -337,6 +338,7 @@ pyl.close()
 
 c = 0.5
 X_train = np.squeeze(X_train, axis=4)
+
 # plot test and train ones that don't agree with labels
 for i in range(len(preds_train)):
     triplet_Xtrain = X_train[i]
@@ -346,7 +348,7 @@ for i in range(len(preds_train)):
         num +=1
         print(t.shape)
 
-        if y_train[i] == 0 and preds_train[i][1] > c:
+        if y_train[i] == 0 and preds_train[i][1] > c: # check confidence index
             
             (c1, c2) = zscale.get_limits(t)
             normer = interval.ManualInterval(c1,c2)
