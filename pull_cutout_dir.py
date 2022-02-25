@@ -22,8 +22,8 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
     #    year+sem+block+'+2+1/',year+sem+block+'+2-1/',year+sem+block+'+2-2/',year+sem+block+'-1+0/',year+sem+block+'-1+1/',year+sem+block+'-1-1/',year+sem+block+'-1-2/',year+sem+block+'-2+0/',year+sem+block+'-2+1/', \
     #    year+sem+block+'-2-1/',year+sem+block+'-2-2/']
     # list all dirs inside instead of this
-    vos_path = 'vos:OSSOS/measure3/' + cutout_dir
-    local_path = '/arc/projects/uvickbos/ML-MOD/OSSOS_datapull/' + cutout_dir[:7]
+    vos_path = 'vos:OSSOS/measure3/' + cutout_dir[:7]
+    local_path = '/arc/projects/uvickbos/ML-MOD/OSSOS_datapull/' + cutout_dir
     #main_dirs = filter(os.path.isdir, os.listdir(local_path))
     main_dirs = [directory for directory in os.listdir(local_path) if os.path.isdir(local_path+directory)]
     print(main_dirs)
