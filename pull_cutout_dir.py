@@ -59,7 +59,7 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
                         real_file = file.replace('.cands.astrom', '.reals.astrom') 
                         real_file_cut = real_file.rsplit('/', 1)[-1]
                         #print('searching for .reals.astrom, found')
-                        print(real_file)
+                        print(real_file_cut)
                         real_exists = 0
                         if real_file_cut in contents:
                             #print('reals file found')
@@ -81,6 +81,6 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
             print('ERROR with dir', d)
             print(e)
 
-list_x = ['2015A-M_automatic/', '2013A-O_automatic/', '2013A-P_automatic/'] #'2015B-D_automatic/'
+list_x = ['2015A-M_automatic/', '2013A-O_automatic/', '2015A-P_automatic/'] #'2015B-D_automatic/'
 for x in list_x:
     pull_dir_loop(x)
