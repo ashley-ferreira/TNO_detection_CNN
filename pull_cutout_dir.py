@@ -36,49 +36,51 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
             str1 = 'ls ' + local_path_d
             dirs = os.popen(str1).read().split('\n')
 
+            count = 0
             for dir in dirs:
+                file = dir
                 #print(dir)
-                str2 = 'ls ' + local_path_d + '/' + dir
-                print(str2)
-                contents = os.popen(str2).read().split('\n')
-                print(contents)
-                print(len(contents))
+                #str2 = 'ls ' + local_path_d + '/' + dir
+                #print(str2)
+                #contents = os.popen(str2).read().split('\n')
+                #print(contents)
+                #print(len(contents))
                 #contents = os.listdir(local_path_d)
 
-                count = 0
-                for file in contents: 
-                    file_cut = file.rsplit('/', 1)[-1]
-                    #print('checking file',file_cut)
-                    
-                    if count > num_cutouts//2:
-                        break
+                
+                #for file in contents: 
+                file_cut = file.rsplit('/', 1)[-1]
+                print('checking file',file_cut)
+                
+                if count > num_cutouts//2:
+                    break
 
-                    #elif file[:2] == 'fk': 
-                    #    print('fk file, excluding for now')
+                #elif file[:2] == 'fk': 
+                #    print('fk file, excluding for now')
 
-                    elif file.endswith(".cands.astrom") and file_cut[9] == 'p': # make sure this doesn't skip some
-                        #print('this is a .cans.astrom file')
-                        file_path = os.path.join(str(vos_path_d)  + '/' + str(dir) + '/' + str(file))
-                        #print(file_path)
-                        real_file = file.replace('.cands.astrom', '.reals.astrom') 
-                        real_file_cut = real_file.rsplit('/', 1)[-1]
-                        #print('searching for .reals.astrom, found')
-                        print(real_file_cut)
-                        real_exists = 0
-                        #if real_file_cut in contents:
-                            #print('reals file found')
-                            
-                        filesize = os.path.getsize(real_file)
-                        print(filesize)
-                        #filesize = os.path.getsize(str(local_path_d) + '/' + str(dir) + '/' + str(real_file))
-                        #filesize = os.popen('stat '+path+real_file)
-                        #print(filesize)
-                        if filesize != 0:
-                            count +=1
-                            print('real_exists = 1')
-                            real_exists = 1
-                            # pull_cutout(local_path_d + '/' + dir + '/', file, real_exists)
-                        pull_cutout(str(file_path), str(file), real_exists)
+                elif file.endswith(".cands.astrom") and file_cut[9] == 'p': # make sure this doesn't skip some
+                    print('this is a .cans.astrom file')
+                    file_path = os.path.join(str(vos_path_d)  + '/' + str(dir) + '/' + str(file))
+                    #print(file_path)
+                    real_file = file.replace('.cands.astrom', '.reals.astrom') 
+                    real_file_cut = real_file.rsplit('/', 1)[-1]
+                    #print('searching for .reals.astrom, found')
+                    print(real_file_cut)
+                    real_exists = 0
+                    #if real_file_cut in contents:
+                        #print('reals file found')
+                        
+                    filesize = os.path.getsize(real_file)
+                    print(filesize)
+                    #filesize = os.path.getsize(str(local_path_d) + '/' + str(dir) + '/' + str(real_file))
+                    #filesize = os.popen('stat '+path+real_file)
+                    #print(filesize)
+                    if filesize != 0:
+                        count +=1
+                        print('real_exists = 1')
+                        real_exists = 1
+                        # pull_cutout(local_path_d + '/' + dir + '/', file, real_exists)
+                    pull_cutout(str(file_path), str(file), real_exists)
 
 
         except Exception as e:
