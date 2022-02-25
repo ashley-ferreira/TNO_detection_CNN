@@ -70,7 +70,7 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
                     #if real_file_cut in contents:
                         #print('reals file found')
                         
-                    filesize = os.path.getsize(local_path_d + real_file_cut)
+                    filesize = os.path.getsize(local_path_d + '/' + real_file_cut)
                     print(filesize)
                     #filesize = os.path.getsize(str(local_path_d) + '/' + str(dir) + '/' + str(real_file))
                     #filesize = os.popen('stat '+path+real_file)
