@@ -74,6 +74,6 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
             print('ERROR with dir', d)
             print(e)
 
-list_x = ['2015B-D_automatic/', '2013A-O_automatic/', '2015A-M_automatic/']
+list_x = ['2015A-M_automatic/', '2013A-O_automatic/'] #'2015B-D_automatic/'
 for x in list_x:
     pull_dir_loop(x)
