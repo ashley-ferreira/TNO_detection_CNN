@@ -41,6 +41,7 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
                 str2 = 'ls ' + local_path_d + '/' + dir
                 #contents = os.popen(str2).read().split('\n')
                 #print(contents)
+                contents = os.listdir(local_path_d)
 
                 count = 0
                 for file in contents: 
