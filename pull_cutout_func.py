@@ -27,6 +27,7 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+2-1/15AP+2-1_p36.
     dlm = downloader.ImageCutoutDownloader()
 
     sources = parser.parse(filename) #full_filename)
+    print(filename)
 
     filename = filename.rsplit('/', 1)[-1]
 
