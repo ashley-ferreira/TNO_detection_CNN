@@ -56,11 +56,12 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
                         print('this is a .cans.astrom file')
                         file_path = os.path.join(str(vos_path_d)  + '/' + str(dir) + '/' + str(file))
                         #print(file_path)
-                        real_file = file.replace('.cands.astrom', '.reals.astrom').rsplit('/', 1)[-1]
+                        real_file = file.replace('.cands.astrom', '.reals.astrom') 
+                        real_file_cut = real_file.rsplit('/', 1)[-1]
                         #print('searching for .reals.astrom, found')
                         print(real_file)
                         real_exists = 0
-                        if real_file in contents:
+                        if real_file_cut in contents:
                             #print('reals file found')
                             
                             filesize = os.path.getsize(real_file)
