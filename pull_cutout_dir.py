@@ -37,7 +37,7 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
             dirs = os.popen(str1).read().split('\n')
 
             for dir in dirs:
-                print(dir)
+                #print(dir)
                 str2 = 'ls ' + local_path_d + '/' + dir
                 contents = os.popen(str2).read().split('\n')
 
@@ -48,19 +48,19 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
                     if count > num_cutouts//2:
                         break
 
-                    elif file[:2] == 'fk': 
-                        print('fk file, excluding for now')
+                    #elif file[:2] == 'fk': 
+                    #    print('fk file, excluding for now')
 
-                    elif file.endswith(".cands.astrom"):
+                    elif file.endswith(".cands.astrom") and file[9] == 'p': # make sure this doesn't skip some
                         print('this is a .cans.astrom file')
                         file_path = os.path.join(str(vos_path_d)  + '/' + str(dir) + '/' + str(file))
                         #print(file_path)
                         real_file = file.replace('.cands.astrom', '.reals.astrom')
-                        print('searching for .reals.astrom, found')
-                        print(real_file)
+                        #print('searching for .reals.astrom, found')
+                        #print(real_file)
                         real_exists = 0
                         if real_file in contents:
-                            print('reals file found')
+                            #print('reals file found')
                             filesize = os.path.getsize(str(real_file))
                             #filesize = os.path.getsize(str(local_path_d) + '/' + str(dir) + '/' + str(real_file))
                             #filesize = os.popen('stat '+path+real_file)
@@ -76,6 +76,6 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
             print('ERROR with dir', d)
             print(e)
 
-list_x = ['2015A-M_automatic/', '2013A-O_automatic/'] #'2015B-D_automatic/'
+list_x = ['2015A-M_automatic/', '2013A-O_automatic/', '2013A-P_automatic/'] #'2015B-D_automatic/'
 for x in list_x:
     pull_dir_loop(x)
