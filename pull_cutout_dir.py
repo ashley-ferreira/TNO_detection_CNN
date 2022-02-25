@@ -43,7 +43,8 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
 
                 count = 0
                 for file in contents: 
-                    print('checking file',file)
+                    file_cut = file.rsplit('/', 1)[-1]
+                    print('checking file',file_cut)
                     
                     if count > num_cutouts//2:
                         break
@@ -51,7 +52,7 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 100000):
                     #elif file[:2] == 'fk': 
                     #    print('fk file, excluding for now')
 
-                    elif file.endswith(".cands.astrom") and file[9] == 'p': # make sure this doesn't skip some
+                    elif file.endswith(".cands.astrom") and file_cut[9] == 'p': # make sure this doesn't skip some
                         print('this is a .cans.astrom file')
                         file_path = os.path.join(str(vos_path_d)  + '/' + str(dir) + '/' + str(file))
                         #print(file_path)
