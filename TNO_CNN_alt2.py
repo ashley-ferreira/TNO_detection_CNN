@@ -71,8 +71,8 @@ cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts_just_p/'
 ####section for setting up some flags and hyperparameters
 batch_size = 16 # increase with more data
 dropout_rate = 0.2
-test_fraction = 0.5
-num_epochs = 20
+test_fraction = 0.1
+num_epochs = 50
 
 
 ####
@@ -174,7 +174,7 @@ for file in file_lst:
             triplet = []
             count = 0
             #print(check_total) 
-            
+
         elif len(triplet) > 3:
             triplet = []
 
@@ -305,7 +305,7 @@ cn_model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=["ac
 
 start = time.time()
 
-classifier = cn_model.fit(X_train, y_train_binary, epochs=num_epochs, batch_size=batch_size)
+classifier = cn_model.fit(X_train, y_train_binary, epochs=num_epochs, batch_size=batch_size, validation_split=0.1)
 
 end = time.time()
 print('Process completed in', round(end-start, 2), ' seconds')
@@ -317,7 +317,8 @@ cn_model.save(cutout_path + 'model_' + str(end))
 preds_train = cn_model.predict(X_train, verbose=1)
 #preds_test = cn_model.predict(X_test, verbose=1)
 #help(cn_model.evaluate)
-eval_test = cn_model.evaluate(X_test, y_test_binary, batch_size=batch_size, verbose=1)
+print(y_test_binary)
+eval_test = cn_model.evaluate(X_test, y_test_binary, batch_size=batch_size, verbose=1) #_binary
 print("test loss, test acc:", eval_test)
 
 """
