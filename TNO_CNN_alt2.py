@@ -301,7 +301,7 @@ print('model fit input shape (X_train.shape)', X_train.shape)
 cn_model = convnet_model(X_train.shape[1:], training_labels = y_train_binary, unique_labs=unique_labels)
 cn_model.summary()
 
-cn_model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=["accuracy"])
+cn_model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=["accuracy","val_acc"])
 
 start = time.time()
 
