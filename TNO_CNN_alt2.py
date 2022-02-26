@@ -301,11 +301,11 @@ print('model fit input shape (X_train.shape)', X_train.shape)
 cn_model = convnet_model(X_train.shape[1:], training_labels = y_train_binary, unique_labs=unique_labels)
 cn_model.summary()
 
-cn_model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=["accuracy","val_accuracy"])
+cn_model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=["accuracy"])#,"val_accuracy"])
 
 start = time.time()
 
-classifier = cn_model.fit(X_train, y_train_binary, epochs=num_epochs, batch_size=batch_size, validation_split=0.1)
+classifier = cn_model.fit(X_train, y_train_binary, epochs=num_epochs, batch_size=batch_size, validation_split=0.1, verbose=1)
 
 end = time.time()
 print('Process completed in', round(end-start, 2), ' seconds')
