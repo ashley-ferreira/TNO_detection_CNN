@@ -60,6 +60,9 @@ from astropy.visualization import interval, ZScaleInterval
 from astropy.io import fits
 zscale = ZScaleInterval()
 
+from keras.callbacks import Callback
+logs = Callback()
+
 ## initializing random seeds for reproducability
 # tf.random.set_seed(1234)
 # keras.utils.set_random_seed(1234)
@@ -305,7 +308,7 @@ cn_model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=["ac
 
 start = time.time()
 
-classifier = cn_model.fit(X_train, y_train_binary, epochs=num_epochs, batch_size=batch_size, validation_split=0.1, verbose=1)
+classifier = cn_model.fit(X_train, y_train_binary, epochs=num_epochs, batch_size=batch_size, validation_split=0.1, verbose=1, callbacks=[logs])
 
 end = time.time()
 print('Process completed in', round(end-start, 2), ' seconds')
