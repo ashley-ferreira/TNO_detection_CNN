@@ -77,7 +77,7 @@ cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts_just_p/'
 batch_size = 32 # increase with more data
 dropout_rate = 0.5
 test_fraction = 0.1
-num_epochs = 50
+num_epochs = 20
 
 
 ####
@@ -302,15 +302,16 @@ print('training input shape (X_train.shape[1:])', X_train.shape[1:])
 print('model fit input shape (X_train.shape)', X_train.shape)
 
 
-rf = RandomForestClassifier(n_estimators=200)
-rf.fit(X_train,y_train)
-print("Accuracy: ", rf.score(X_test,y_test_binary))
+#rf = RandomForestClassifier(n_estimators=200)
+#rf.fit(X_train,y_train)
+#print("Accuracy: ", rf.score(X_test,y_test_binary))
 
 ### train the model!
 cn_model = convnet_model(X_train.shape[1:], training_labels = y_train_binary, unique_labs=unique_labels)
 cn_model.summary()
 
-cn_model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=["accuracy"])#,"val_accuracy"])
+opt = keras.optimizers.Adam(learning_rate=0.1)
+cn_model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=["accuracy"], optimizer=opt)#,"val_accuracy"])
 
 start = time.time()
 
