@@ -128,7 +128,7 @@ count = 0
 check_total = 0
 for file in file_lst: 
     if file.endswith(".cands.astrom") and file[9] == 'p':
-        print(file)
+        #print(file)
         sub_file_lst = sorted(os.listdir(cutout_path+file))
 
         for sub_file in sub_file_lst:
@@ -159,9 +159,9 @@ for file in file_lst:
                 triplet = []
                 break
             
-        if len(triplet) > 0:    
+        if len(triplet) == 3:    
             triplet = np.array(triplet)
-            #print(triplet.shape)
+            print(triplet.shape)
             label = int(sub_file[-6])
             if label == 1:
                 good_cutouts.append(triplet)
@@ -174,6 +174,9 @@ for file in file_lst:
             triplet = []
             count = 0
             #print(check_total) 
+            
+        elif len(triplet) > 3:
+            triplet = []
 
 
 good_labels = np.array(good_labels)
