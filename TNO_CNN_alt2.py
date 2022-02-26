@@ -302,7 +302,7 @@ print('training input shape (X_train.shape[1:])', X_train.shape[1:])
 print('model fit input shape (X_train.shape)', X_train.shape)
 
 
-rf = RandomForestClassifier(n_estimators=500)
+rf = RandomForestClassifier(n_estimators=200)
 rf.fit(X_train,y_train)
 print("Accuracy: ", rf.score(X_test,y_test_binary))
 
