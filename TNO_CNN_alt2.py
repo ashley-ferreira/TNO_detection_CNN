@@ -63,6 +63,8 @@ zscale = ZScaleInterval()
 from keras.callbacks import Callback
 logs = Callback()
 
+from sklearn.ensemble import RandomForestClassifier
+
 ## initializing random seeds for reproducability
 # tf.random.set_seed(1234)
 # keras.utils.set_random_seed(1234)
@@ -72,8 +74,8 @@ cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts_just_p/'
 
 
 ####section for setting up some flags and hyperparameters
-batch_size = 16 # increase with more data
-dropout_rate = 0.2
+batch_size = 32 # increase with more data
+dropout_rate = 0.5
 test_fraction = 0.1
 num_epochs = 50
 
@@ -288,7 +290,7 @@ def convnet_model(input_shape, training_labels, unique_labs, dropout_rate=dropou
     model.add(Dropout(dropout_rate))
     model.add(Dense(128, activation='sigmoid'))
     model.add(Dropout(dropout_rate))
-    model.add(Dense(unique_labs, activation='softmax'))
+    model.add(Dense(unique_labs, activation='sigmoid'))
 
     return model
 
@@ -296,9 +298,13 @@ unique_labels = 2
 y_train_binary = keras.utils.np_utils.to_categorical(y_train, unique_labels)
 y_test_binary = keras.utils.np_utils.to_categorical(y_test, unique_labels)
 
-
 print('training input shape (X_train.shape[1:])', X_train.shape[1:])
 print('model fit input shape (X_train.shape)', X_train.shape)
+
+
+rf = RandomForestClassifier(n_estimators=500)
+rf.fit(X_train,y_train)
+print("Accuracy: ", rf.score(X_test,y_test_binary))
 
 ### train the model!
 cn_model = convnet_model(X_train.shape[1:], training_labels = y_train_binary, unique_labs=unique_labels)
