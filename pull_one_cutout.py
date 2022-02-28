@@ -9,7 +9,7 @@ import os
 
 from ossos.gui import logger
 
-storing_directory = '/arc/projects/uvickbos/ML-MOD/cutouts_debug/'
+storing_directory = '/arc/projects/uvickbos/ML-MOD/triplets_wTNO_examples/'
 
 
 def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p34.measure3.cands.astrom', 
