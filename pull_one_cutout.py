@@ -29,7 +29,7 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p34.
 
     file_dir = filename + '/'
     sub_dir = storing_directory + file_dir
-    os.mkdir(sub_dir)
+    os.mkdir(sub_dir, exists_ok=True)
 
     for source in sources.get_sources():
         print(source)
