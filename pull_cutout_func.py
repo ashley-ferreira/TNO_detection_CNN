@@ -36,6 +36,8 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+2-1/15AP+2-1_p36.
     os.mkdir(sub_dir)
 
     for source in sources.get_sources()[1:2]:
+        print(source)
+        continue
         for i,reading in enumerate(source.get_readings()):
             reading.uncertainty_ellipse.a = cutout_size*0.185/2/2.5 * units.arcsecond
             #print(reading)
