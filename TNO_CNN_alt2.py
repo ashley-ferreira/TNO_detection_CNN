@@ -286,10 +286,7 @@ def convnet_model(input_shape, training_labels, unique_labs, dropout_rate=dropou
     model.add(MaxPool3D(pool_size=(3, 4, 4), padding='valid')) # just for this last maxpool, pool_size = ()
 
     model.add(Flatten())
-    model.add(Dense(64, activation='sigmoid')) # 128 -> 64
-    model.add(Dropout(dropout_rate))
-    model.add(Dense(128, activation='sigmoid'))
-    model.add(Dropout(dropout_rate))
+    model.add(Dense(256, activation='relu'))
     model.add(Dense(unique_labs, activation='softmax'))
 
     return model
