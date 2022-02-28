@@ -77,7 +77,7 @@ cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts_just_p/'
 batch_size = 16 # increase with more data
 dropout_rate = 0.5
 test_fraction = 0.1
-num_epochs = 25
+num_epochs = 100
 
 
 ####
@@ -255,6 +255,22 @@ for train_index, test_index in skf.split(cutouts, labels):
     X_train, X_test = cutouts[train_index], cutouts[test_index]
     y_train, y_test = labels[train_index], labels[test_index]
 
+'''
+#shift left right up down
+shift = 2
+x_train_l = np.copy(x_train)
+x_train_l[: ,:, :, ::-shift, :] = x_train[:, :, :, shift::, :]
+x_train_r = np.copy(x_train)
+x_train_r[: ,:, :, shift::, :] = x_train[:, :, :, ::-shift, :]
+x_train_u = np.copy(x_train)
+x_train_u[: ,:, shift::, :, :] = x_train[:, :, ::-shift, :, :]
+x_train_d = np.copy(x_train)
+x_train_d[: ,:, ::-shift, :, :] = x_train[:, :, shift::, :, :]
+# make the augmented training array 
+x_train = np.concatenate([x_train, x_train_l, x_train_r, x_train, u, x_train_d])
+#duplicate the labels array
+y_train = np.concatenate([y_train, y_train, y_train, y_train, y_train])
+'''
 
 
 ### define the CNN
