@@ -27,7 +27,7 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p34.
     sources = parser.parse(full_filename) #full_filename)
     print(full_filename)
 
-    file_dir = filename + 'new/'
+    file_dir = filename + 'new2/'
     sub_dir = storing_directory + file_dir
     os.mkdir(sub_dir)#, exist_ok=True)
 
