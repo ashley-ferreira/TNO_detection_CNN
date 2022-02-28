@@ -77,7 +77,7 @@ cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts_just_p/'
 batch_size = 32 # increase with more data
 dropout_rate = 0.5
 test_fraction = 0.1
-num_epochs = 20
+num_epochs = 50
 
 
 ####
@@ -290,7 +290,7 @@ def convnet_model(input_shape, training_labels, unique_labs, dropout_rate=dropou
     model.add(Dropout(dropout_rate))
     model.add(Dense(128, activation='sigmoid'))
     model.add(Dropout(dropout_rate))
-    model.add(Dense(unique_labs, activation='sigmoid'))
+    model.add(Dense(unique_labs, activation='softmax'))
 
     return model
 
