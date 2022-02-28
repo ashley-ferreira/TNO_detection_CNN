@@ -74,10 +74,10 @@ cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts_just_p/'
 
 
 ####section for setting up some flags and hyperparameters
-batch_size = 32 # increase with more data
-dropout_rate = 0.5
+batch_size = 16 # increase with more data
+dropout_rate = 0.25
 test_fraction = 0.1
-num_epochs = 50
+num_epochs = 25
 
 
 ####
@@ -269,12 +269,12 @@ def convnet_model(input_shape, training_labels, unique_labs, dropout_rate=dropou
     model = Sequential()
 
     #hidden layer 1
-    model.add(Conv3D(filters=8, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
+    model.add(Conv3D(filters=32, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
     model.add(Dropout(dropout_rate))
     model.add(MaxPool3D(pool_size=(1, 2, 2), padding='valid'))
 
     #hidden layer 2 with Pooling
-    model.add(Conv3D(filters=16, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
+    model.add(Conv3D(filters=32, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
     model.add(Dropout(dropout_rate))
     model.add(MaxPool3D(pool_size=(1, 2, 2), padding='valid'))
 
