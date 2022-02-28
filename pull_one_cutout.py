@@ -41,9 +41,9 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p34.
 
 
 
-pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p28.measure3.cands.astrom', file_name='15AP+0+0_p28.measure3.cands.astrom')
-pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p24.measure3.cands.astrom', file_name='15AP+0+0_p24.measure3.cands.astrom')
-pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p17.measure3.cands.astrom', file_name='15AP+0+0_p17.measure3.cands.astrom')
-pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p15.measure3.cands.astrom', file_name='15AP+0+0_p15.measure3.cands.astrom')
-pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP-2-2/15AP-2-2_p1.measure3.cands.astrom', file_name='15AP-2-2_p1.measure3.cands.astrom')
-pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP-2-2/15AP-2-2_p14.measure3.cands.astrom', file_name='15AP-2-2_p14.measure3.cands.astrom')
+pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p28.measure3.cands.astrom', filename='15AP+0+0_p28.measure3.cands.astrom')
+pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p24.measure3.cands.astrom', filename='15AP+0+0_p24.measure3.cands.astrom')
+pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p17.measure3.cands.astrom', filename='15AP+0+0_p17.measure3.cands.astrom')
+pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p15.measure3.cands.astrom', filename='15AP+0+0_p15.measure3.cands.astrom')
+pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP-2-2/15AP-2-2_p1.measure3.cands.astrom', filename='15AP-2-2_p1.measure3.cands.astrom')
+pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP-2-2/15AP-2-2_p14.measure3.cands.astrom', filename='15AP-2-2_p14.measure3.cands.astrom')
