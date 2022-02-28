@@ -33,6 +33,7 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p34.
 
     for source in sources.get_sources():
         for i,reading in enumerate(source.get_readings()):
+
             cutout = dlm.download_cutout(reading, needs_apcor=True)
             cutout.hdulist.writeto(sub_dir + filename + str(i) + '.fits', overwrite=True)
             mjd_obs = float(cutout.fits_header.get('MJD-OBS'))
@@ -40,4 +41,9 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p34.
 
 
 
-pull_cutout()
+pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p28.measure3.cands.astrom', file_name='15AP+0+0_p28.measure3.cands.astrom')
+pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p24.measure3.cands.astrom', file_name='15AP+0+0_p24.measure3.cands.astrom')
+pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p17.measure3.cands.astrom', file_name='15AP+0+0_p17.measure3.cands.astrom')
+pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p15.measure3.cands.astrom', file_name='15AP+0+0_p15.measure3.cands.astrom')
+pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP-2-2/15AP-2-2_p1.measure3.cands.astrom', file_name='15AP-2-2_p1.measure3.cands.astrom')
+pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP-2-2/15AP-2-2_p14.measure3.cands.astrom', file_name='15AP-2-2_p14.measure3.cands.astrom')
