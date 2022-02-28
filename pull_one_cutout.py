@@ -38,7 +38,7 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p34.
         for i,reading in enumerate(source.get_readings()):
             print(reading)
             cutout = dlm.download_cutout(reading, needs_apcor=True)
-            cutout.hdulist.writeto(sub_dir + filename + str(cand) + str(i) + '.fits', overwrite=True)
+            cutout.hdulist.writeto(sub_dir + filename + '_' + str(cand) + '_' + str(i) + '.fits', overwrite=True)
             mjd_obs = float(cutout.fits_header.get('MJD-OBS'))
             exptime = float(cutout.fits_header.get('EXPTIME'))
 
