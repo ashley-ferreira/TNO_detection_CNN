@@ -50,7 +50,7 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p14.
             for i,reading in enumerate(source.get_readings()):
                 print(reading)
 
-                if reading.dec in real_cands:
+                if reading.dec in real_cands: # check up one earlier in source? always all 3 only
                     label=1
                 else:
                     label=0
