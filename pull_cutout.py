@@ -9,7 +9,7 @@ import os
 
 from ossos.gui import logger
 
-storing_directory = '/arc/projects/uvickbos/ML-MOD/new_cutouts/'
+storing_directory = '/arc/projects/uvickbos/ML-MOD/new_cutouts_mar1/'
 
 
 def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p14.measure3.cands.astrom', 
@@ -32,7 +32,7 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p14.
 
         real_cands = []
         for real_source in real_sources.get_sources(): 
-            print(real_source)
+            #print(real_source)
 
             for i,real_reading in enumerate(real_source.get_readings()):
                 print(real_reading.dec)
@@ -41,14 +41,13 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p14.
 
         cand=0
         for source in sources.get_sources(): 
-            print(source)
+            #print(source)
 
             file_dir = filename.replace('.measure3.cands.astrom', '')  + '_cand=' + str(cand) + '/'
             sub_dir = storing_directory + file_dir
             os.mkdir(sub_dir)
-            cand+=1
             for i,reading in enumerate(source.get_readings()):
-                print(reading)
+                #print(reading)
 
                 if reading.dec in real_cands: # check up one earlier in source? always all 3 only
                     label=1
@@ -58,18 +57,21 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p14.
                 cutout = dlm.download_cutout(reading, needs_apcor=True)
                 sub_filename = file_dir = filename.replace('.measure3.cands.astrom', '')  + '_cand=' + str(cand) + '_triplet='+ str(i) + '_label=' + str(label) + '.fits'
                 cutout.hdulist.writeto(sub_dir + sub_filename, overwrite=True)
+                print(sub_dir+sub_filename)
+            cand+=1
 
     else:
         label=0
         cand=0
         for source in sources.get_sources(): 
-            print(source)
+            #print(source)
             file_dir = filename.replace('.measure3.cands.astrom', '')  + '_cand=' + str(cand) + '/'
             sub_dir = storing_directory + file_dir
             os.mkdir(sub_dir)
-            cand+=1
             for i,reading in enumerate(source.get_readings()):
-                print(reading)
+                #print(reading)
                 cutout = dlm.download_cutout(reading, needs_apcor=True)
                 sub_filename = sub_filename = file_dir = filename.replace('.measure3.cands.astrom', '')  + '_cand=' + str(cand) + '_triplet='+ str(i) + '_label=' + str(label) + '.fits'
                 cutout.hdulist.writeto(sub_dir + sub_filename, overwrite=True)
+            print(sub_dir+sub_filename)
+            cand+=1
