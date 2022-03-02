@@ -71,5 +71,3 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p14.
                 print(reading)
                 cutout = dlm.download_cutout(reading, needs_apcor=True)
                 cutout.hdulist.writeto(sub_dir + filename + '_' + str(i) + '_label=' + str(label) + '.fits', overwrite=True)
-
-pull_cutout(real_exists=1)
