@@ -64,11 +64,12 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p14.
         cand=0
         for source in sources.get_sources(): 
             print(source)
-            file_dir = filename + '_' + str(cand) + '/'
+            file_dir = filename.replace('measure3.cands.astrom', '')  + '_cand=' + str(cand) + '/'
             sub_dir = storing_directory + file_dir
             os.mkdir(sub_dir)
             cand+=1
             for i,reading in enumerate(source.get_readings()):
                 print(reading)
                 cutout = dlm.download_cutout(reading, needs_apcor=True)
-                cutout.hdulist.writeto(sub_dir + filename + '_' + str(i) + '_label=' + str(label) + '.fits', overwrite=True)
+                sub_filename = sub_filename = file_dir = filename.replace('measure3.cands.astrom', '')  + '_cand=' + str(cand) + '_triplet='+ str(i) + '_label=' + str(label) + '.fits'
+                cutout.hdulist.writeto(sub_dir + sub_filename, overwrite=True)
