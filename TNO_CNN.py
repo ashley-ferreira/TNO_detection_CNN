@@ -131,37 +131,37 @@ count = 0
 check_total = 0
 for file in file_lst: 
     print(file)
-    if file.endswith(".cands.astrom_*") and file[9] == 'p':
+    if file[9] == 'p': # temp solution, file.endswith(".measure3") and
         print(file)
         sub_file_lst = sorted(os.listdir(cutout_path+file))
 
         for sub_file in sub_file_lst:
-            
-            try:
-                with fits.open(cutout_path+file+'/'+sub_file) as han:
-                    img_data = han[1].data.astype('float64')
-                    #img_header = han[0].header
+            if sub_file.endswith('.fits'):
+                try:
+                    with fits.open(cutout_path+file+'/'+sub_file) as han:
+                        img_data = han[1].data.astype('float64')
+                        #img_header = han[0].header
 
-                count +=1 
-                
-                img_data -= np.nanmedian(img_data)
-                img_data = crop_center(img_data, cutout_full_width, cutout_full_width) # skip smaller ones    
+                    count +=1 
+                    
+                    img_data -= np.nanmedian(img_data)
+                    img_data = crop_center(img_data, cutout_full_width, cutout_full_width) # skip smaller ones    
 
-                (aa,bb) = img_data.shape
+                    (aa,bb) = img_data.shape
 
-            except Exception as e: 
-                print(e)
-                aa, bb = 0, 0
+                except Exception as e: 
+                    print(e)
+                    aa, bb = 0, 0
 
-            if aa == cutout_full_width and bb == cutout_full_width: # how do some get past this?
-                triplet.append(img_data)
-                print(img_data.shape)
-            else:
-                #null_arr = np.zeros((120,120))
-                #print(null_arr.shape)
-                #triplet.append(null_arr)
-                triplet = []
-                break
+                if aa == cutout_full_width and bb == cutout_full_width: # how do some get past this?
+                    triplet.append(img_data)
+                    print(img_data.shape)
+                else:
+                    #null_arr = np.zeros((120,120))
+                    #print(null_arr.shape)
+                    #triplet.append(null_arr)
+                    triplet = []
+                    break
             
         if len(triplet) > 0:    
             triplet = np.array(triplet)
