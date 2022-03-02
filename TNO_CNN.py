@@ -67,7 +67,7 @@ np.random.seed(432)
 
 cutout_path = '/arc/projects/uvickbos/ML-MOD/new_cutouts_mar2/'
 
-cutout_full_width = 181
+cutout_full_width = 121
 
 ####section for setting up some flags and hyperparameters
 batch_size = 16 # increase with more data
