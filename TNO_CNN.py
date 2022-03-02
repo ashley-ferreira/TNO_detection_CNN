@@ -142,7 +142,8 @@ for file in file_lst:
                     with fits.open(cutout_path+file+'/'+sub_file) as han:
                         img_data = han[1].data.astype('float64')
                         #img_header = han[0].header
-                    print(sub_file) 
+                        
+                    print(sub_file) # not in order?
                     print(img_data.shape)
                     count +=1 
                     

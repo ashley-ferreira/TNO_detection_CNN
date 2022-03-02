@@ -9,6 +9,8 @@ import os
 
 from ossos.gui import logger
 
+from reals_contents import pull_real_decs
+
 storing_directory = '/arc/projects/uvickbos/ML-MOD/new_cutouts_mar1/'
 
 
@@ -25,19 +27,7 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p14.
     sources = parser.parse(full_filename)
 
     if real_exists:
-        # make a list of loc to look at 
-        # HERE
-        real_full_filename = full_filename.replace('.cands.astrom', '.reals.astrom') 
-        real_sources = parser.parse(real_full_filename)
-
-        real_cands = []
-        for real_source in real_sources.get_sources(): 
-            #print(real_source)
-
-            for i,real_reading in enumerate(real_source.get_readings()):
-                print(real_reading.dec)
-                real_cands.append(real_reading.dec)
-
+        real_cands = pull_real_decs(full_filename)
 
         cand=0
         for source in sources.get_sources(): 
