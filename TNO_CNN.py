@@ -137,6 +137,7 @@ for file in file_lst:
         sub_file_lst = sorted(os.listdir(cutout_path+file))
 
         for sub_file in sub_file_lst:
+            #print(sub_file)
             if sub_file.endswith('.fits'):
                 try:
                     with fits.open(cutout_path+file+'/'+sub_file) as han:
@@ -167,7 +168,7 @@ for file in file_lst:
                     triplet = []
                     break
             
-        if len(triplet) > 0:    
+        if len(triplet) == 3:    
             triplet = np.array(triplet)
             #print(triplet.shape)
             label = int(sub_file[-6])
