@@ -142,13 +142,13 @@ for file in file_lst:
                     with fits.open(cutout_path+file+'/'+sub_file) as han:
                         img_data = han[1].data.astype('float64')
                         #img_header = han[0].header
-                    print(sub_file) # not in order?
+                    print(sub_file) 
                     print(img_data.shape)
                     count +=1 
                     
                     img_data -= np.nanmedian(img_data)
                     img_data = crop_center(img_data, cutout_full_width, cutout_full_width) # skip smaller ones    
-
+                    print(img_data.shape)
                     (aa,bb) = img_data.shape
 
                 except Exception as e: 
