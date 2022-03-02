@@ -351,11 +351,11 @@ X_train = np.squeeze(X_train, axis=4)
 # plot test and train ones that don't agree with labels
 for i in range(len(preds_train)):
     triplet_Xtrain = X_train[i]
-    print(triplet_Xtrain.shape)
+    #print(triplet_Xtrain.shape)
     num = 0
     for t in triplet_Xtrain:
         num +=1
-        print(t.shape)
+        #print(t.shape)
 
         if y_train[i] == 0 and preds_train[i][1] > c: # check confidence index
             
