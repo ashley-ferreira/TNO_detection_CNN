@@ -153,9 +153,10 @@ for file in file_lst:
                     print(e)
                     aa, bb = 0, 0
 
+                print(img_data.shape)
                 if aa == cutout_full_width and bb == cutout_full_width: # how do some get past this?
                     triplet.append(img_data)
-                    print(img_data.shape)
+                
                 else:
                     #null_arr = np.zeros((120,120))
                     #print(null_arr.shape)
