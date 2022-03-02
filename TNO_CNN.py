@@ -130,9 +130,10 @@ count = 0
 
 check_total = 0
 for file in file_lst: 
-    print(file)
+    #print(file)
+    # all get through below
     if file[9] == 'p': # temp solution, file.endswith(".measure3") and
-        print(file)
+        #print(file)
         sub_file_lst = sorted(os.listdir(cutout_path+file))
 
         for sub_file in sub_file_lst:
@@ -141,7 +142,8 @@ for file in file_lst:
                     with fits.open(cutout_path+file+'/'+sub_file) as han:
                         img_data = han[1].data.astype('float64')
                         #img_header = han[0].header
-
+                    print(sub_file)
+                    print(img_data.shape)
                     count +=1 
                     
                     img_data -= np.nanmedian(img_data)
@@ -153,7 +155,7 @@ for file in file_lst:
                     print(e)
                     aa, bb = 0, 0
 
-                print(img_data.shape)
+                
                 if aa == cutout_full_width and bb == cutout_full_width: # how do some get past this?
                     triplet.append(img_data)
                 
