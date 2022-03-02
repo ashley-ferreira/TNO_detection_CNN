@@ -130,7 +130,7 @@ count = 0
 
 check_total = 0
 for file in file_lst: 
-    if file.endswith(".cands.astrom") and file[9] == 'p':
+    if file.endswith(".cands.astrom_*") and file[9] == 'p':
         print(file)
         sub_file_lst = sorted(os.listdir(cutout_path+file))
 
