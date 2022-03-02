@@ -3,7 +3,7 @@
 import sys 
 import os
 import glob
-from pull_cutout_func import pull_cutout
+from pull_cutout import pull_cutout
 
 
 
