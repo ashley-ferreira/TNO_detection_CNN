@@ -65,14 +65,17 @@ zscale = ZScaleInterval()
 # keras.utils.set_random_seed(1234)
 np.random.seed(432)
 
-cutout_path = '/arc/projects/uvickbos/ML-MOD/140_pix_cutouts_nofk/'
+cutout_path = '/arc/projects/uvickbos/ML-MOD/new_cutouts/'
 
+cutout_full_width = 181
 
 ####section for setting up some flags and hyperparameters
 batch_size = 16 # increase with more data
 dropout_rate = 0.2
 test_fraction = 0.5
 num_epochs = 20
+
+
 
 
 ####
@@ -141,7 +144,7 @@ for file in file_lst:
                 count +=1 
                 
                 img_data -= np.nanmedian(img_data)
-                img_data = crop_center(img_data, 138, 138) # skip smaller ones    
+                img_data = crop_center(img_data, cutout_full_width, cutout_full_width) # skip smaller ones    
 
                 (aa,bb) = img_data.shape
 
@@ -149,7 +152,7 @@ for file in file_lst:
                 print(e)
                 aa, bb = 0, 0
 
-            if aa == 138 and bb == 138: # how do some get past this?
+            if aa == cutout_full_width and bb == cutout_full_width: # how do some get past this?
                 triplet.append(img_data)
                 #print(img_data.shape)
             else:
