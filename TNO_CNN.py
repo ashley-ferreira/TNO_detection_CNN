@@ -72,7 +72,7 @@ cutout_full_width = 121
 ####section for setting up some flags and hyperparameters
 batch_size = 16 # increase with more data
 dropout_rate = 0.2
-test_fraction = 0.5
+test_fraction = 0.05
 num_epochs = 20
 
 
