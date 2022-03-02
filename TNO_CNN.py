@@ -144,12 +144,12 @@ for file in file_lst:
                         img_data = han[1].data.astype('float64')
                         #img_header = han[0].header
 
-                    print(sub_file) # not in order?
+                    print(sub_file) 
                     print(img_data.shape)
                     count +=1 
                     
                     img_data -= np.nanmedian(img_data)
-                    img_data = crop_center(img_data, cutout_full_width, cutout_full_width) # skip smaller ones    
+                    img_data = crop_center(img_data, cutout_full_width, cutout_full_width)    
                     print(img_data.shape)
                     (aa,bb) = img_data.shape
 
@@ -158,7 +158,7 @@ for file in file_lst:
                     aa, bb = 0, 0
 
                 
-                if aa == cutout_full_width and bb == cutout_full_width: # how do some get past this?
+                if aa == cutout_full_width and bb == cutout_full_width: 
                     triplet.append(img_data)
                 
                 else:
