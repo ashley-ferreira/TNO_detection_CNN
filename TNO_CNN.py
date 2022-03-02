@@ -154,7 +154,7 @@ for file in file_lst:
 
             if aa == cutout_full_width and bb == cutout_full_width: # how do some get past this?
                 triplet.append(img_data)
-                #print(img_data.shape)
+                print(img_data.shape)
             else:
                 #null_arr = np.zeros((120,120))
                 #print(null_arr.shape)
@@ -223,7 +223,7 @@ labels = np.concatenate((good_labels, bad_labels))
 print(str(len(cutouts)) + ' files used')
 print(len(labels))
 
-with open(cutout_path + 'presaved_data_feb35_ponly.pickle', 'wb+') as han:
+with open(cutout_path + 'presaved_data.pickle', 'wb+') as han:
     pickle.dump([cutouts, labels], han)
 
 # REGULARIZE
@@ -235,7 +235,7 @@ cutouts /= std
 w_bad = np.where(np.isnan(cutouts))
 cutouts[w_bad] = 0.0
 
-with open(cutout_path + 'regularization_data_ponly.pickle', 'wb+') as han:
+with open(cutout_path + 'regularization_data.pickle', 'wb+') as han:
     pickle.dump([std, mean], han)
 
 
