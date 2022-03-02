@@ -65,7 +65,7 @@ zscale = ZScaleInterval()
 # keras.utils.set_random_seed(1234)
 np.random.seed(432)
 
-cutout_path = '/arc/projects/uvickbos/ML-MOD/new_cutouts_mar1/'
+cutout_path = '/arc/projects/uvickbos/ML-MOD/new_cutouts_mar2/'
 
 cutout_full_width = 181
 
@@ -142,7 +142,7 @@ for file in file_lst:
                     with fits.open(cutout_path+file+'/'+sub_file) as han:
                         img_data = han[1].data.astype('float64')
                         #img_header = han[0].header
-                        
+
                     print(sub_file) # not in order?
                     print(img_data.shape)
                     count +=1 

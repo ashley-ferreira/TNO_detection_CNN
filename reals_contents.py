@@ -2,7 +2,7 @@ from ossos import storage
 from ossos import astrom
 
 
-storing_directory = '/arc/projects/uvickbos/ML-MOD/new_cutouts_mar1/'
+storing_directory = '/arc/projects/uvickbos/ML-MOD/new_cutouts_mar2/'
 
 
 def pull_real_decs(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p14.measure3.cands.astrom'):
