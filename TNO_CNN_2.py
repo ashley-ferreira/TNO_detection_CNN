@@ -72,8 +72,8 @@ cutout_full_width = 121
 ####section for setting up some flags and hyperparameters
 batch_size = 32 # increase with more data
 dropout_rate = 0.2
-test_fraction = 0.2
-num_epochs = 20
+test_fraction = 0.1
+num_epochs = 25
 
 
 
@@ -252,6 +252,9 @@ with open(cutout_path + 'regularization_data.pickle', 'wb+') as han:
     pickle.dump([std, mean], han)
 
 
+
+
+
 ### now divide the cutouts array into training and testing datasets.
 
 skf = StratifiedShuffleSplit(n_splits=1, test_size=test_fraction)#, random_state=41)
@@ -262,6 +265,25 @@ skf.split(cutouts, labels)
 for train_index, test_index in skf.split(cutouts, labels):
     X_train, X_test = cutouts[train_index], cutouts[test_index]
     y_train, y_test = labels[train_index], labels[test_index]
+
+
+
+
+#shift left right up down
+shift = 1
+x_train_l = np.copy(X_train)
+x_train_l[: ,:, :, ::-shift, :] = X_train[:, :, :, shift::, :]
+x_train_r = np.copy(X_train)
+x_train_r[: ,:, :, shift::, :] = X_train[:, :, :, ::-shift, :]
+x_train_u = np.copy(X_train)
+x_train_u[: ,:, shift::, :, :] = X_train[:, :, ::-shift, :, :]
+x_train_d = np.copy(X_train)
+x_train_d[: ,:, ::-shift, :, :] = X_train[:, :, shift::, :, :]
+# make the augmented training array 
+x_train = np.concatenate([X_train, x_train_l, x_train_r, X_train, x_train_u, x_train_d])
+#duplicate the labels array
+y_train = np.concatenate([y_train, y_train, y_train, y_train, y_train, y_train])
+
 
 
 
@@ -289,11 +311,12 @@ def convnet_model(input_shape, training_labels, unique_labs, dropout_rate=dropou
     model.add(BatchNormalization())
 
     #hidden layer 3 with Pooling
-    model.add(Conv3D(filters=16, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
+    model.add(Conv3D(filters=32, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
     model.add(Dropout(dropout_rate))
     model.add(MaxPool3D(pool_size=(3, 4, 4), padding='valid')) # just for this last maxpool, pool_size = ()
 
     model.add(Flatten())
+    model.add(Dense(64, activation='sigmoid')) 
     model.add(Dense(128, activation='sigmoid'))
     model.add(Dense(unique_labs, activation='softmax'))
 
