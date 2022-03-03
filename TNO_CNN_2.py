@@ -280,7 +280,7 @@ x_train_u[: ,:, shift:, :, :] = X_train[:, :, :-shift, :, :]
 x_train_d = np.copy(X_train)
 x_train_d[: ,:, :-shift, :, :] = X_train[:, :, shift:, :, :]
 # make the augmented training array 
-x_train = np.concatenate([X_train, x_train_l, x_train_r, X_train, x_train_u, x_train_d])
+X_train = np.concatenate([X_train, x_train_l, x_train_r, X_train, x_train_u, x_train_d])
 #duplicate the labels array
 y_train = np.concatenate([y_train, y_train, y_train, y_train, y_train, y_train])
 
