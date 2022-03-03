@@ -236,7 +236,7 @@ if data_pull == 'scratch':
 
 
 elif data_pull == 'presaved':
-    with open('presaved_data.pickle', 'rb') as han:
+    with open(cutout_path + 'presaved_data.pickle', 'rb') as han:
         [cutouts, labels] = pickle.load(han) 
 
 # REGULARIZE
