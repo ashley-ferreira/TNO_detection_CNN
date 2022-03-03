@@ -73,7 +73,7 @@ cutout_full_width = 121
 batch_size = 32 # increase with more data
 dropout_rate = 0.2
 test_fraction = 0.1
-num_epochs = 25
+num_epochs = 10
 
 
 
@@ -317,7 +317,6 @@ def convnet_model(input_shape, training_labels, unique_labs, dropout_rate=dropou
 
     model.add(Flatten())
     model.add(Dense(64, activation='sigmoid')) 
-    model.add(Dense(128, activation='sigmoid'))
     model.add(Dense(unique_labs, activation='softmax'))
 
     return model
