@@ -272,13 +272,13 @@ for train_index, test_index in skf.split(cutouts, labels):
 #shift left right up down
 shift = 1
 x_train_l = np.copy(X_train)
-x_train_l[: ,:, :, ::-shift, :] = X_train[:, :, :, shift::, :]
+x_train_l[: ,:, :, :-shift, :] = X_train[:, :, :, shift:, :]
 x_train_r = np.copy(X_train)
-x_train_r[: ,:, :, shift::, :] = X_train[:, :, :, ::-shift, :]
+x_train_r[: ,:, :, shift:, :] = X_train[:, :, :, :-shift, :]
 x_train_u = np.copy(X_train)
-x_train_u[: ,:, shift::, :, :] = X_train[:, :, ::-shift, :, :]
+x_train_u[: ,:, shift:, :, :] = X_train[:, :, :-shift, :, :]
 x_train_d = np.copy(X_train)
-x_train_d[: ,:, ::-shift, :, :] = X_train[:, :, shift::, :, :]
+x_train_d[: ,:, :-shift, :, :] = X_train[:, :, shift:, :, :]
 # make the augmented training array 
 x_train = np.concatenate([X_train, x_train_l, x_train_r, X_train, x_train_u, x_train_d])
 #duplicate the labels array
