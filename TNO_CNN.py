@@ -309,7 +309,7 @@ cn_model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=["ac
 
 start = time.time()
 
-classifier = cn_model.fit(X_train, y_train_binary, epochs=num_epochs, batch_size=batch_size)
+classifier = cn_model.fit(X_train, y_train_binary, epochs=num_epochs, batch_size=batch_size, validation_split=0.1)
 
 end = time.time()
 print('Process completed in', round(end-start, 2), ' seconds')
