@@ -128,109 +128,116 @@ triplet = []
 count = 0
 
 
-check_total = 0
-for file in file_lst: 
-    #print(file)
-    # all get through below
-    if file[9] == 'p': # temp solution, file.endswith(".measure3") and
+data_pull = 'presaved'
+if data_pull == 'scratch':
+    check_total = 0
+    for file in file_lst: 
         #print(file)
-        sub_file_lst = sorted(os.listdir(cutout_path+file))
+        # all get through below
+        if file[9] == 'p': # temp solution, file.endswith(".measure3") and
+            #print(file)
+            sub_file_lst = sorted(os.listdir(cutout_path+file))
 
-        for sub_file in sub_file_lst:
-            #print(sub_file)
-            if sub_file.endswith('.fits'):
-                try:
-                    with fits.open(cutout_path+file+'/'+sub_file) as han:
-                        img_data = han[1].data.astype('float64')
-                        #img_header = han[0].header
+            for sub_file in sub_file_lst:
+                #print(sub_file)
+                if sub_file.endswith('.fits'):
+                    try:
+                        with fits.open(cutout_path+file+'/'+sub_file) as han:
+                            img_data = han[1].data.astype('float64')
+                            #img_header = han[0].header
 
-                    print(sub_file) 
-                    print(img_data.shape)
-                    count +=1 
+                        print(sub_file) 
+                        print(img_data.shape)
+                        count +=1 
+                        
+                        img_data -= np.nanmedian(img_data)
+                        img_data = crop_center(img_data, cutout_full_width, cutout_full_width)    
+                        print(img_data.shape)
+                        (aa,bb) = img_data.shape
+
+                    except Exception as e: 
+                        print(e)
+                        aa, bb = 0, 0
+
                     
-                    img_data -= np.nanmedian(img_data)
-                    img_data = crop_center(img_data, cutout_full_width, cutout_full_width)    
-                    print(img_data.shape)
-                    (aa,bb) = img_data.shape
-
-                except Exception as e: 
-                    print(e)
-                    aa, bb = 0, 0
-
+                    if aa == cutout_full_width and bb == cutout_full_width: 
+                        triplet.append(img_data)
+                    
+                    else:
+                        #null_arr = np.zeros((120,120))
+                        #print(null_arr.shape)
+                        #triplet.append(null_arr)
+                        triplet = []
+                        break
                 
-                if aa == cutout_full_width and bb == cutout_full_width: 
-                    triplet.append(img_data)
+            if len(triplet) == 3:    
+                triplet = np.array(triplet)
+                #print(triplet.shape)
+                label = int(sub_file[-6])
+                if label == 1:
+                    good_cutouts.append(triplet)
+                    good_labels.append(1) # can do after too
+                elif label == 0:
+                    bad_cutouts.append(triplet)
+                    bad_labels.append(0) 
+
+                check_total +=1 
+                triplet = []
+                count = 0
+                #print(check_total) 
+
+
+    good_labels = np.array(good_labels)
+    good_cutouts = np.array(good_cutouts, dtype=object)
+    print(good_cutouts.shape)
+
+    bad_labels = np.array(bad_labels)
+    bad_cutouts = np.array(bad_cutouts, dtype=object)
+    print(bad_cutouts.shape)
+
+    num_good = len(good_cutouts)
+    num_bad = len(bad_cutouts)
+    print(num_good, 'good cutouts')
+    print(num_bad, 'bad cutouts')
+
+    if num_good > num_bad: # equalize either way
+        print('more good cutouts than bad')
+        #sys.exit()
+
+    if num_good < num_bad:
+        number_of_rows = bad_cutouts.shape[0]
+        random_indices = np.random.choice(number_of_rows, size=num_good, replace=False)
+        random_bad_cutouts = bad_cutouts[random_indices, :]
+        random_good_cutouts = good_cutouts
+        
+        bad_labels = np.zeros(num_good)
+
+    elif num_good > num_bad: 
+        number_of_rows = good_cutouts.shape[0]
+        random_indices = np.random.choice(number_of_rows, size=num_bad, replace=False)
+        random_good_cutouts = good_cutouts[random_indices, :]
+        random_bad_cutouts = bad_cutouts
+        
+        good_labels = np.ones(num_bad)
+
+    # combine arrays 
+    cutouts = np.concatenate((random_good_cutouts, random_bad_cutouts))
+    cutouts = np.expand_dims(cutouts, axis=4)
+    print('CNN total data shape', cutouts.shape)
+
+    # make label array for all
+    labels = np.concatenate((good_labels, bad_labels))
                 
-                else:
-                    #null_arr = np.zeros((120,120))
-                    #print(null_arr.shape)
-                    #triplet.append(null_arr)
-                    triplet = []
-                    break
-            
-        if len(triplet) == 3:    
-            triplet = np.array(triplet)
-            #print(triplet.shape)
-            label = int(sub_file[-6])
-            if label == 1:
-                good_cutouts.append(triplet)
-                good_labels.append(1) # can do after too
-            elif label == 0:
-                bad_cutouts.append(triplet)
-                bad_labels.append(0) 
+    print(str(len(cutouts)) + ' files used')
+    print(len(labels))
 
-            check_total +=1 
-            triplet = []
-            count = 0
-            #print(check_total) 
+    with open(cutout_path + 'presaved_data.pickle', 'wb+') as han:
+        pickle.dump([cutouts, labels], han)
 
 
-good_labels = np.array(good_labels)
-good_cutouts = np.array(good_cutouts, dtype=object)
-print(good_cutouts.shape)
-
-bad_labels = np.array(bad_labels)
-bad_cutouts = np.array(bad_cutouts, dtype=object)
-print(bad_cutouts.shape)
-
-num_good = len(good_cutouts)
-num_bad = len(bad_cutouts)
-print(num_good, 'good cutouts')
-print(num_bad, 'bad cutouts')
-
-if num_good > num_bad: # equalize either way
-    print('more good cutouts than bad')
-    #sys.exit()
-
-if num_good < num_bad:
-    number_of_rows = bad_cutouts.shape[0]
-    random_indices = np.random.choice(number_of_rows, size=num_good, replace=False)
-    random_bad_cutouts = bad_cutouts[random_indices, :]
-    random_good_cutouts = good_cutouts
-    
-    bad_labels = np.zeros(num_good)
-
-elif num_good > num_bad: 
-    number_of_rows = good_cutouts.shape[0]
-    random_indices = np.random.choice(number_of_rows, size=num_bad, replace=False)
-    random_good_cutouts = good_cutouts[random_indices, :]
-    random_bad_cutouts = bad_cutouts
-    
-    good_labels = np.ones(num_bad)
-
-# combine arrays 
-cutouts = np.concatenate((random_good_cutouts, random_bad_cutouts))
-cutouts = np.expand_dims(cutouts, axis=4)
-print('CNN total data shape', cutouts.shape)
-
-# make label array for all
-labels = np.concatenate((good_labels, bad_labels))
-            
-print(str(len(cutouts)) + ' files used')
-print(len(labels))
-
-with open(cutout_path + 'presaved_data.pickle', 'wb+') as han:
-    pickle.dump([cutouts, labels], han)
+elif data_pull == 'presaved':
+    with open('presaved_data.pickle', 'rb') as han:
+        [cutouts, labels] = pickle.load(han) 
 
 # REGULARIZE
 cutouts = np.asarray(cutouts).astype('float32')
