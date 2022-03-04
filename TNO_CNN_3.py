@@ -373,12 +373,7 @@ ax2.set_xlabel('Epoch')
 pyl.show()
 pyl.close()
 
-good_stars_above_c = 0
-bad_stars_above_c = 0
-good_stars_correct = 0
-bad_stars_correct = 0
-good_stars_incorrect = 0
-bad_stars_incorrect = 0
+
 good_star_acc = []
 bad_star_acc = []
 
@@ -387,6 +382,12 @@ confidence_queries = np.arange(confidence_step, 1, confidence_step)
 
 
 for c in confidence_queries:
+    good_stars_above_c = 0
+    bad_stars_above_c = 0
+    good_stars_correct = 0
+    bad_stars_correct = 0
+    good_stars_incorrect = 0
+    bad_stars_incorrect = 0
     for i in range(len(preds_test)):
         if preds_test[i][1] > c:
             good_stars_above_c +=1 
@@ -401,11 +402,8 @@ for c in confidence_queries:
             elif y_test[i] == 1:
                 bad_stars_incorrect +=1
                    
-
-print('good', good_stars_correct, good_stars_incorrect, good_stars_above_c)
-print('bad', bad_stars_correct, bad_stars_incorrect, bad_stars_above_c)
-good_star_acc.append(good_stars_correct/good_stars_above_c)
-bad_star_acc.append(bad_stars_correct/bad_stars_above_c)
+    good_star_acc.append(good_stars_correct/good_stars_above_c)
+    bad_star_acc.append(bad_stars_correct/bad_stars_above_c)
 
 pyl.title('Accuracy Curve')
 pyl.plot(confidence_queries, good_star_acc, label='real TNO classificantion')
