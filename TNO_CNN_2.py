@@ -73,7 +73,7 @@ cutout_full_width = 121
 batch_size = 64 # increase with more data
 dropout_rate = 0.5
 test_fraction = 0.1
-num_epochs = 20
+num_epochs = 40
 
 
 
