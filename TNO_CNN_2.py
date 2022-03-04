@@ -70,8 +70,8 @@ cutout_path = '/arc/projects/uvickbos/ML-MOD/new_cutouts_mar2/'
 cutout_full_width = 121
 
 ####section for setting up some flags and hyperparameters
-batch_size = 128 # increase with more data
-dropout_rate = 0.2
+batch_size = 64 # increase with more data
+dropout_rate = 0.5
 test_fraction = 0.1
 num_epochs = 10
 
@@ -299,19 +299,19 @@ def convnet_model(input_shape, training_labels, unique_labs, dropout_rate=dropou
     model = Sequential()
 
     #hidden layer 1
-    model.add(Conv3D(filters=32, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
+    model.add(Conv3D(filters=16, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
     model.add(Dropout(dropout_rate))
     model.add(MaxPool3D(pool_size=(1, 2, 2), padding='valid'))
 
     #hidden layer 2 with Pooling
-    model.add(Conv3D(filters=32, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
+    model.add(Conv3D(filters=16, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
     model.add(Dropout(dropout_rate))
     model.add(MaxPool3D(pool_size=(1, 2, 2), padding='valid'))
 
     model.add(BatchNormalization())
 
     #hidden layer 3 with Pooling
-    model.add(Conv3D(filters=32, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
+    model.add(Conv3D(filters=16, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
     model.add(Dropout(dropout_rate))
     model.add(MaxPool3D(pool_size=(3, 4, 4), padding='valid')) # just for this last maxpool, pool_size = ()
 
