@@ -71,7 +71,7 @@ cutout_full_width = 121
 
 ####section for setting up some flags and hyperparameters
 batch_size = 64 # increase with more data
-dropout_rate = 0.5
+dropout_rate = 0.4
 test_fraction = 0.3
 num_epochs = 30
 
@@ -299,12 +299,12 @@ def convnet_model(input_shape, training_labels, unique_labs, dropout_rate=dropou
     model = Sequential()
 
     #hidden layer 1
-    model.add(Conv3D(filters=16, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
+    model.add(Conv3D(filters=8, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
     model.add(Dropout(dropout_rate))
     model.add(MaxPool3D(pool_size=(1, 2, 2), padding='valid'))
 
     #hidden layer 2 with Pooling
-    model.add(Conv3D(filters=16, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
+    model.add(Conv3D(filters=8, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
     model.add(Dropout(dropout_rate))
     model.add(MaxPool3D(pool_size=(1, 2, 2), padding='valid'))
 
@@ -316,7 +316,8 @@ def convnet_model(input_shape, training_labels, unique_labs, dropout_rate=dropou
     model.add(MaxPool3D(pool_size=(3, 4, 4), padding='valid')) # just for this last maxpool, pool_size = ()
 
     model.add(Flatten())
-    model.add(Dense(32, activation='sigmoid')) 
+    model.add(Dense(16, activation='sigmoid')) 
+    model.add(Dropout(dropout_rate))
     model.add(Dense(unique_labs, activation='softmax'))
 
     return model
