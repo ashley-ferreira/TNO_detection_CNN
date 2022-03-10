@@ -70,30 +70,11 @@ cutout_path = '/arc/projects/uvickbos/ML-MOD/new_cutouts_mar2/'
 cutout_full_width = 121
 
 ####section for setting up some flags and hyperparameters
-batch_size = 16 # increase with more data
+batch_size = 32
 dropout_rate = 0.2
-test_fraction = 0.2
+test_fraction = 0.15
 num_epochs = 40
 
-
-
-
-####
-#here you'll need to read in source the cutout data.
-#the array should be of the shape
-#   [n, x, y, 1]
-#
-# the easiest way to do this is to create an array like:
-# cutouts = []
-# for i in range(len(files)):
-#     cutouts.append(data[i])
-# cutouts = np.array(cutouts)
-# cutouts = np.expand_dims(cutouts, axis=3)
-#
-# you might already have a cutouts array of shape (n,x,y) and so only the last
-# line might be necessary
-#
-# the cutouts array needs to include cutouts for both good and bad sources.
 
 def crop_center(img, cropx, cropy):
     '''
@@ -116,22 +97,18 @@ def crop_center(img, cropx, cropy):
 
     return cropped_img
 
-file_lst = sorted(os.listdir(cutout_path))#.sort()
+file_lst = sorted(os.listdir(cutout_path))
 
 good_cutouts = []
 bad_cutouts = []
-
 good_labels = []
 bad_labels = []
-# for each triplet
 triplet = []
 count = 0
-
 
 check_total = 0
 for file in file_lst: 
     #print(file)
-    # all get through below
     if file[9] == 'p': # temp solution, file.endswith(".measure3") and
         #print(file)
         sub_file_lst = sorted(os.listdir(cutout_path+file))
@@ -142,7 +119,7 @@ for file in file_lst:
                 try:
                     with fits.open(cutout_path+file+'/'+sub_file) as han:
                         img_data = han[1].data.astype('float64')
-                        #img_header = han[0].header
+                        # img_header = han[0].header
 
                     print(sub_file) 
                     print(img_data.shape)
@@ -183,6 +160,9 @@ for file in file_lst:
             triplet = []
             count = 0
             #print(check_total) 
+        else:
+            triplet = []
+            count = 0
 
 
 good_labels = np.array(good_labels)
@@ -270,25 +250,24 @@ def convnet_model(input_shape, training_labels, unique_labs, dropout_rate=dropou
     model = Sequential()
 
     #hidden layer 1
-    model.add(Conv3D(filters=32, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
+    model.add(Conv3D(filters=16, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
     model.add(Dropout(dropout_rate))
     model.add(MaxPool3D(pool_size=(1, 2, 2), padding='valid'))
 
     #hidden layer 2 with Pooling
-    model.add(Conv3D(filters=32, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
+    model.add(Conv3D(filters=16, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
     model.add(Dropout(dropout_rate))
     model.add(MaxPool3D(pool_size=(1, 2, 2), padding='valid'))
 
     model.add(BatchNormalization())
 
     #hidden layer 3 with Pooling
-    model.add(Conv3D(filters=32, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
+    model.add(Conv3D(filters=8, kernel_size=(1, 3, 3), input_shape=input_shape, activation='relu', padding='valid'))
     model.add(Dropout(dropout_rate))
     model.add(MaxPool3D(pool_size=(3, 4, 4), padding='valid')) # just for this last maxpool, pool_size = ()
 
     model.add(Flatten())
-    model.add(Dense(64, activation='sigmoid')) # 128 -> 64
-    model.add(Dense(128, activation='sigmoid'))
+    model.add(Dense(32, activation='sigmoid')) # 128 -> 64
     model.add(Dense(unique_labs, activation='softmax'))
 
     return model
