@@ -6,7 +6,6 @@ import glob
 from pull_cutout import pull_cutout
 
 
-
 def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 10000000):
     year = cutout_dir[2:4]
     print(year)
@@ -39,7 +38,7 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 10000000):
                 print('checking file',file_cut)
                 
                 if count > num_cutouts//2:
-                    print('MAX CUTOUTS SAVED, exciting program...')
+                    print('MAX CUTOUTS SAVED, exiting program...')
                     break
 
                 elif file.endswith(".cands.astrom") and file_cut[9] == 'p': 
