@@ -1,35 +1,5 @@
 # RUN IN LSST TERMINAL 
 
-'''
-import os
-import time
-import sys
-import random
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as pyl
-import matplotlib.gridspec as gridspec
-import pickle
-import tensorflow as tf
-import keras
-from keras.models import Model, load_model, Sequential
-from keras.layers import Input, Dense, Activation, ZeroPadding2D, BatchNormalization, Flatten, Conv3D, Conv2D, MaxPool3D
-from keras.layers.core import Dropout, Lambda
-from keras.callbacks import EarlyStopping, ModelCheckpoint
-#from keras.utils import to_categorical
-from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
-from sklearn.model_selection import train_test_split, cross_val_score, KFold
-from sklearn.metrics import confusion_matrix, accuracy_score
-from sklearn.utils.multiclass import unique_labels
-from sklearn.model_selection import StratifiedKFold, StratifiedShuffleSplit
-from astropy.io import fits
-from astropy.wcs import WCS
-from astropy.nddata import Cutout2D
-from astropy.visualization import interval
-from trippy import tzscale
-from trippy.trippy_utils import expand2d, downSample2d
-import glob
-''' 
 import os
 from os import path
 import time
@@ -60,16 +30,16 @@ from astropy.visualization import interval, ZScaleInterval
 from astropy.io import fits
 zscale = ZScaleInterval()
 
-## initializing random seeds for reproducability
-# tf.random.set_seed(1234)
-# keras.utils.set_random_seed(1234)
+# initializing random seeds for reproducability
 np.random.seed(432)
 
-cutout_path = '/arc/projects/uvickbos/ML-MOD/new_cutouts_mar2/'
+# where the cutouts are saved
+cutout_path = '/arc/projects/uvickbos/ML-MOD/new_cutouts_mar16/'
 
+# what size cutouts to trian on
 cutout_full_width = 121
 
-####section for setting up some flags and hyperparameters
+# section for setting up some flags and hyperparameters
 batch_size = 32
 dropout_rate = 0.2
 test_fraction = 0.15
@@ -97,26 +67,30 @@ def crop_center(img, cropx, cropy):
 
     return cropped_img
 
+# initialize
 file_lst = sorted(os.listdir(cutout_path))
-
 good_cutouts = []
 bad_cutouts = []
 good_labels = []
 bad_labels = []
 triplet = []
 count = 0
-
 check_total = 0
+
+# loop through each file in cutout_path
 for file in file_lst: 
     #print(file)
     if file[9] == 'p': # temp solution, file.endswith(".measure3") and
         #print(file)
-        sub_file_lst = sorted(os.listdir(cutout_path+file))
 
+        # loop through the 3 triplets for each file
+        sub_file_lst = sorted(os.listdir(cutout_path+file))
         for sub_file in sub_file_lst:
             #print(sub_file)
             if sub_file.endswith('.fits'):
                 try:
+
+                    # save image data for one triplet at a time
                     with fits.open(cutout_path+file+'/'+sub_file) as han:
                         img_data = han[1].data.astype('float64')
                         # img_header = han[0].header
@@ -125,7 +99,10 @@ for file in file_lst:
                     print(img_data.shape)
                     count +=1 
                     
+                    # subtract the background from the image
                     img_data -= np.nanmedian(img_data)
+
+                    # crop to be a (121,121) cutout
                     img_data = crop_center(img_data, cutout_full_width, cutout_full_width)    
                     print(img_data.shape)
                     (aa,bb) = img_data.shape
@@ -134,29 +111,37 @@ for file in file_lst:
                     print(e)
                     aa, bb = 0, 0
 
-                
+                # make sure cutouts are the right size (small ones that get cropped 
+                # will still be too small) there is no padding yet
                 if aa == cutout_full_width and bb == cutout_full_width: 
+                    # append to list of images in triplet
                     triplet.append(img_data)
                 
                 else:
-                    #null_arr = np.zeros((120,120))
-                    #print(null_arr.shape)
-                    #triplet.append(null_arr)
+                    # move on to next file with new set of triplets
                     triplet = []
                     break
             
+        # make sure there are exactly 3 triplets in list
         if len(triplet) == 3:    
             triplet = np.array(triplet)
             #print(triplet.shape)
+
+            # grab label from file name
             label = int(sub_file[-6])
+
+            # append good triplets (label=1) to one list 
+            # and bad triplets (label=0) to another 
             if label == 1:
                 good_cutouts.append(triplet)
-                good_labels.append(1) # can do after too
+                good_labels.append(1) # not needed
             elif label == 0:
                 bad_cutouts.append(triplet)
                 bad_labels.append(0) 
 
             check_total +=1 
+
+            # make sure triplet list is emptied and count set back to 0
             triplet = []
             count = 0
             #print(check_total) 
@@ -164,7 +149,7 @@ for file in file_lst:
             triplet = []
             count = 0
 
-
+# convert all lists to arrays and make sure they are all of the right shape
 good_labels = np.array(good_labels)
 good_cutouts = np.array(good_cutouts, dtype=object)
 print(good_cutouts.shape)
@@ -173,14 +158,18 @@ bad_labels = np.array(bad_labels)
 bad_cutouts = np.array(bad_cutouts, dtype=object)
 print(bad_cutouts.shape)
 
+# compare number of good and bad triplets
 num_good = len(good_cutouts)
 num_bad = len(bad_cutouts)
 print(num_good, 'good cutouts')
 print(num_bad, 'bad cutouts')
 
-if num_good > num_bad: # equalize either way
+if num_good > num_bad: 
     print('more good cutouts than bad')
-    #sys.exit()
+    #sys.exit() --> equalize either way now
+else:
+    print('more bad cutouts than good (expected)')
+
 
 if num_good < num_bad:
     number_of_rows = bad_cutouts.shape[0]
