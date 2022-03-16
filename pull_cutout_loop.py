@@ -3,7 +3,7 @@
 import sys 
 import os
 import glob
-from pull_cutout import pull_cutout
+from pull_cutout_together import pull_cutout
 
 
 def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 10000000):
