@@ -44,6 +44,7 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p14.
 
         print(cand_dec_lst)
 
+        # consider found way below instead
         label = 0
         for r in real_decs:
             r = list(r)

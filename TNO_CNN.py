@@ -95,7 +95,11 @@ for file in file_lst:
                     # save image data for one triplet at a time
                     with fits.open(cutout_path+file+'/'+sub_file) as han:
                         img_data = han[1].data.astype('float64')
-                        # img_header = han[0].header
+                        img_header = han[0].header
+
+                    print(img_header)
+                    #x = 
+                    #y = 
 
                     print(sub_file) 
                     print(img_data.shape)
