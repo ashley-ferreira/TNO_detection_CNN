@@ -43,13 +43,14 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p14.
 
         print(cand_dec_lst)
 
+        label = 0
         for r in real_decs:
             r = list(r)
             print(r)
             if r == cand_dec_lst:
                 label=1
             else:
-                label=0
+                label=0 # redundant 
 
         # make a directory for each candidate
         file_dir = filename.replace('.measure3.cands.astrom', '')  + '_cand=' + str(cand) + '_label=' + str(label) + '/'
