@@ -34,7 +34,7 @@ zscale = ZScaleInterval()
 np.random.seed(4321)
 
 # where the cutouts are saved
-cutout_path = '/arc/projects/uvickbos/ML-MOD/new_cutouts_mar16/'
+cutout_path = '/arc/projects/uvickbos/ML-MOD/new_cutouts_mar17/'
 
 # what size cutouts to trian on
 cutout_full_width = 121
@@ -43,7 +43,7 @@ cutout_full_width = 121
 batch_size = 16
 dropout_rate = 0.2
 test_fraction = 0.15
-num_epochs = 70
+num_epochs = 20
 
 
 def crop_center(img, cropx, cropy):

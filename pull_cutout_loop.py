@@ -31,7 +31,8 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 10000):
 
             # loop through all files in d directory (ones that actually contain cands)
             str1 = 'ls ' + local_path_d
-            files = os.popen(str1).read().split('\n')
+            files = os.popen(str1).read().split('\n') # glob way: ls *.fits,files = glob.glob(‘*.fits’)
+
             count = 0
             for file in files:
 
@@ -45,6 +46,7 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 10000):
                     break
 
                 # loop through all p .cands.astrom files
+                # alternate way: glob.glob(‘????????p*.cands.astrom')
                 elif file.endswith(".cands.astrom") and file_cut[9] == 'p': 
                     file_path = os.path.join(str(vos_path_d)  + '/' + str(dir)) 
 

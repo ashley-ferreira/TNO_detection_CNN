@@ -17,11 +17,15 @@ def pull_real_decs(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p
     real_cands_decs = []
     for real_source in real_sources.get_sources(): 
         #print(real_source)
+        sub_lst = []
 
         for i,real_reading in enumerate(real_source.get_readings()):
             print(real_reading.dec)
-            real_cands_decs.append(real_reading.dec)
+            sub_lst.append(real_reading.dec)
 
-    print('num reals dec',len(real_cands_decs))
+        real_cands_decs.append(sub_lst)
+
+    real_cands_decs = np.array(real_cands_decs)
+    print('reals dec shape',real_cands_decs.shape)
 
     return real_cands_decs
