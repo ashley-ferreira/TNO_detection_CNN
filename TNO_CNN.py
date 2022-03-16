@@ -37,7 +37,7 @@ np.random.seed(4321)
 cutout_path = '/arc/projects/uvickbos/ML-MOD/new_cutouts_mar16/'
 
 # what size cutouts to trian on
-cutout_full_width = 141
+cutout_full_width = 121
 
 # section for setting up some flags and hyperparameters
 batch_size = 16
