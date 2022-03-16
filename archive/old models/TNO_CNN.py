@@ -170,38 +170,37 @@ if num_good > num_bad:
 else:
     print('more bad cutouts than good (expected)')
 
-
+# make num_good = num_bad for balanced training set
 if num_good < num_bad:
     number_of_rows = bad_cutouts.shape[0]
     random_indices = np.random.choice(number_of_rows, size=num_good, replace=False)
     random_bad_cutouts = bad_cutouts[random_indices, :]
     random_good_cutouts = good_cutouts
-    
-    bad_labels = np.zeros(num_good)
+    bad_labels = np.zeros(num_good) # can also just use previous list
 
 elif num_good > num_bad: 
     number_of_rows = good_cutouts.shape[0]
     random_indices = np.random.choice(number_of_rows, size=num_bad, replace=False)
     random_good_cutouts = good_cutouts[random_indices, :]
     random_bad_cutouts = bad_cutouts
-    
     good_labels = np.ones(num_bad)
 
-# combine arrays 
+# combine arrays of good and bad cutouts and expand dims
 cutouts = np.concatenate((random_good_cutouts, random_bad_cutouts))
 cutouts = np.expand_dims(cutouts, axis=4)
 print('CNN total data shape', cutouts.shape)
 
-# make label array for all
+# make combined label array for good and bad cutouts
 labels = np.concatenate((good_labels, bad_labels))
             
 print(str(len(cutouts)) + ' files used')
 print(len(labels))
 
+# save data to use later
 with open(cutout_path + 'presaved_data.pickle', 'wb+') as han:
     pickle.dump([cutouts, labels], han)
 
-# REGULARIZE
+# regularize data
 cutouts = np.asarray(cutouts).astype('float32')
 std = np.nanstd(cutouts)
 mean = np.nanmean(cutouts)
@@ -210,27 +209,23 @@ cutouts /= std
 w_bad = np.where(np.isnan(cutouts))
 cutouts[w_bad] = 0.0
 
+# save regularize data std and mean to use later
 with open(cutout_path + 'regularization_data.pickle', 'wb+') as han:
     pickle.dump([std, mean], han)
 
 
-### now divide the cutouts array into training and testing datasets.
-
+# now divide the cutouts array into training and testing datasets
+# (does this randomize within train and test sets? --> i think so but confirm)
 skf = StratifiedShuffleSplit(n_splits=1, test_size=test_fraction)#, random_state=41)
 print(skf)
 skf.split(cutouts, labels)
-
 
 for train_index, test_index in skf.split(cutouts, labels):
     X_train, X_test = cutouts[train_index], cutouts[test_index]
     y_train, y_test = labels[train_index], labels[test_index]
 
 
-
-### define the CNN
-# below is a network I used for KBO classification from image data.
-# you'll need to modify this to use 2D convolutions, rather than 3D.
-# the Maxpool lines will also need to use axa kernels rather than axaxa
+# define the CNN (move external later)
 def convnet_model(input_shape, training_labels, unique_labs, dropout_rate=dropout_rate):
     print('CNN input shape', input_shape)
 
@@ -261,41 +256,39 @@ def convnet_model(input_shape, training_labels, unique_labs, dropout_rate=dropou
 
     return model
 
+# setup labels as binary classification 
 unique_labels = 2
 y_train_binary = keras.utils.np_utils.to_categorical(y_train, unique_labels)
 y_test_binary = keras.utils.np_utils.to_categorical(y_test, unique_labels)
 
-
+# look at input shapes 
 print('training input shape (X_train.shape[1:])', X_train.shape[1:])
 print('model fit input shape (X_train.shape)', X_train.shape)
 
-### train the model!
+# setup the model
 cn_model = convnet_model(X_train.shape[1:], training_labels = y_train_binary, unique_labs=unique_labels)
 cn_model.summary()
-
 cn_model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=["accuracy"])
 
+# train the model, and time how long training takes
 start = time.time()
-
 classifier = cn_model.fit(X_train, y_train_binary, epochs=num_epochs, batch_size=batch_size, validation_split=0.1)
-
 end = time.time()
 print('Process completed in', round(end-start, 2), ' seconds')
 
 # save trained model 
 cn_model.save(cutout_path + 'model_' + str(end))
 
-### get the model output classifications for the train set
+# get the model output classifications for the train set
 preds_train = cn_model.predict(X_train, verbose=1)
 #preds_test = cn_model.predict(X_test, verbose=1)
 #help(cn_model.evaluate)
+
+# test model on test set
 eval_test = cn_model.evaluate(X_test, y_test_binary, batch_size=batch_size, verbose=1)
 print("test loss, test acc:", eval_test)
 
-"""
-Plot accuracy/loss versus epoch
-"""
-
+# plot accuracy/loss versus epoch
 fig = pyl.figure(figsize=(10,3))
 
 ax1 = pyl.subplot(121)
@@ -313,9 +306,9 @@ ax2.set_xlabel('Epoch')
 pyl.show()
 pyl.close()
 
+# EXTRA (for troubleshooting just done on train right now)
 c = 0.5
 X_train = np.squeeze(X_train, axis=4)
-
 # plot test and train ones that don't agree with labels
 for i in range(len(preds_train)):
     triplet_Xtrain = X_train[i]
@@ -341,6 +334,5 @@ for i in range(len(preds_train)):
             pyl.imshow(normer(t))
             pyl.show()
             pyl.close()
-
 
 # save triplet names and laod in ds9 to blink through
