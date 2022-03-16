@@ -155,10 +155,12 @@ for file in file_lst:
 
 # convert all lists to arrays and make sure they are all of the right shape
 good_labels = np.array(good_labels)
+good_cutouts_names = np.array(good_cutouts_names)
 good_cutouts = np.array(good_cutouts, dtype=object)
 print(good_cutouts.shape)
 
 bad_labels = np.array(bad_labels)
+bad_cutouts_names = np.array(bad_cutouts_names)
 bad_cutouts = np.array(bad_cutouts, dtype=object)
 print(bad_cutouts.shape)
 
