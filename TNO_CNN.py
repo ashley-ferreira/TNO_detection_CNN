@@ -37,13 +37,13 @@ np.random.seed(4321)
 cutout_path = '/arc/projects/uvickbos/ML-MOD/new_cutouts_mar16/'
 
 # what size cutouts to trian on
-cutout_full_width = 121
+cutout_full_width = 141
 
 # section for setting up some flags and hyperparameters
 batch_size = 16
 dropout_rate = 0.2
 test_fraction = 0.3
-num_epochs = 60
+num_epochs = 20
 
 
 def crop_center(img, cropx, cropy):
