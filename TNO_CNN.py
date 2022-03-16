@@ -40,9 +40,9 @@ cutout_path = '/arc/projects/uvickbos/ML-MOD/new_cutouts_mar16/'
 cutout_full_width = 121
 
 # section for setting up some flags and hyperparameters
-batch_size = 32
+batch_size = 16
 dropout_rate = 0.2
-test_fraction = 0.15
+test_fraction = 0.3
 num_epochs = 40
 
 
@@ -272,7 +272,7 @@ cn_model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=["ac
 
 # train the model, and time how long training takes
 start = time.time()
-classifier = cn_model.fit(X_train, y_train_binary, epochs=num_epochs, batch_size=batch_size, validation_split=0.1)
+classifier = cn_model.fit(X_train, y_train_binary, epochs=num_epochs, batch_size=batch_size)#, validation_split=0.1)
 end = time.time()
 print('Process completed in', round(end-start, 2), ' seconds')
 
