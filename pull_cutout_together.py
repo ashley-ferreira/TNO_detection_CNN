@@ -14,6 +14,7 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p14.
     '''
     
     '''
+    print('here 1')
     # use previous code to get cutout function initally setup
     storage.DBIMAGES = 'vos:OSSOS/dbimages'
     storage.MEASURE3 = 'vos:OSSOS/measure3'
@@ -29,6 +30,8 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p14.
 
     cand=0
     pos_label = 0
+
+    print('here 2')
 
 
     # loop through all candiates 
