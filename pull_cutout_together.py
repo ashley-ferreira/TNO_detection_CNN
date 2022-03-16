@@ -4,6 +4,7 @@ from ossos.downloads.cutouts import downloader
 
 from astropy import units
 import os
+import numpy as np 
 
 from reals_contents import pull_real_decs
 

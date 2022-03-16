@@ -2,6 +2,7 @@
 
 import os
 from pull_cutout_together import pull_cutout
+import numpy as np 
 
 
 def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 10000):

@@ -1,5 +1,6 @@
 from ossos import storage
 from ossos import astrom
+import numpy as np 
 
 
 def pull_real_decs(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p14.measure3.cands.astrom'):
