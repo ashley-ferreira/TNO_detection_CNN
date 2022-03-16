@@ -48,7 +48,7 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 10000):
                 # loop through all p .cands.astrom files
                 # alternate way: glob.glob(‘????????p*.cands.astrom')
                 elif file.endswith(".cands.astrom") and file_cut[9] == 'p': 
-                    file_path = os.path.join(str(vos_path_d)  + '/' + str(dir)) 
+                    file_path = os.path.join(str(vos_path_d)  + '/' + str(file)) 
 
                     # define real_file name and see if there are any contents
                     real_file = file.replace('.cands.astrom', '.reals.astrom') 
