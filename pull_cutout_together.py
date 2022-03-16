@@ -8,7 +8,7 @@ import numpy as np
 
 from reals_contents import pull_real_decs
 
-storing_directory = '/arc/projects/uvickbos/ML-MOD/new_cutouts_mar17/'
+storing_directory = '/arc/projects/uvickbos/ML-MOD/new_cutouts_mar17_extra/'
 
 def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p14.measure3.cands.astrom', 
         filename='15AP+0+0_p14.measure3.cands.astrom', real_exists=0):
