@@ -64,6 +64,7 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 10000):
                         real_exists = 1
                        
                     # call the pull_cutout function that will do the rest
+                    print(file_path, file)
                     pull_cutout(str(file_path), str(file), real_exists)
 
 
