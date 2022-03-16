@@ -62,7 +62,7 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p14.
 
         # loop through each of the three readings for the above candiate
         for i,reading in enumerate(source.get_readings()):
-
+            print(reading)
             # check if the dec of this reading is exact same as real cands dec
             # if dec matches then label=1, if not label=0
             '''
