@@ -78,6 +78,8 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p14.
             cutout = dlm.download_cutout(reading, needs_apcor=True)
             sub_filename = filename.replace('.measure3.cands.astrom', '')  + '_cand=' + str(cand) + '_triplet='+ str(i) + '_label=' + str(label) + '.fits'
             cutout.hdulist.writeto(sub_dir + sub_filename, overwrite=True)
+            CD1_1 = float(cutout.fits_header.get('CD1_1'))
+            print('CD1_1', CD1_1)
             print(sub_dir+sub_filename)
 
         cand+=1
