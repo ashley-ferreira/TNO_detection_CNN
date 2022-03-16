@@ -37,6 +37,7 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p14.
 
     # loop through all candiates 
     for source in sources.get_sources(): 
+        print(source)
 
         cand_dec_lst = []
         for i,reading in enumerate(source.get_readings()):
