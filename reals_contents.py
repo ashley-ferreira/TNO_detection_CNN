@@ -25,4 +25,6 @@ def pull_real_decs(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p
             print(real_reading.dec)
             real_cands_decs.append(real_reading.dec)
 
+    print('num reals dec',len(real_cands_decs))
+
     return real_cands_decs
