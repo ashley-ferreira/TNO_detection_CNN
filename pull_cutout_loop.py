@@ -8,11 +8,11 @@ from pull_cutout_together import pull_cutout
 
 def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 10000000):
     year = cutout_dir[2:4]
-    print(year)
+    #print(year)
     sem = cutout_dir[4:5]
-    print(sem)
+    #print(sem)
     block = cutout_dir[6:7]
-    print(block)
+    #print(block)
 
     
     og_name = cutout_dir.replace('_automatic/', '/')
@@ -20,7 +20,7 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 10000000):
     local_path = '/arc/projects/uvickbos/ML-MOD/OSSOS_datapull/' + cutout_dir
    
     main_dirs = [directory for directory in os.listdir(local_path) if os.path.isdir(local_path+directory)]
-    print(main_dirs)
+    #print(main_dirs)
 
     for d in main_dirs:
         try: 
@@ -46,11 +46,11 @@ def pull_dir_loop(cutout_dir = '2015A-P/', num_cutouts = 10000000):
                     real_file = file.replace('.cands.astrom', '.reals.astrom') 
                     real_file_cut = real_file.rsplit('/', 1)[-1]
                     #print('searching for .reals.astrom, found')
-                    print(real_file)
+                    #print(real_file)
                     real_exists = 0
                         
                     filesize = os.path.getsize(local_path_d + '/' + real_file_cut)
-                    print(filesize)
+                    #print(filesize)
 
                     if filesize != 0:
                         count +=1

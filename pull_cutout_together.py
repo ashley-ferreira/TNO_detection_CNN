@@ -30,27 +30,27 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p14.
     else:
         real_cands = []
 
-        cand=0
-        pos_label = 0
-        for source in sources.get_sources(): 
-            #print(source)
+    cand=0
+    pos_label = 0
+    for source in sources.get_sources(): 
+        #print(source)
 
-            file_dir = filename.replace('.measure3.cands.astrom', '')  + '_cand=' + str(cand) + '/'
-            sub_dir = storing_directory + file_dir
-            os.mkdir(sub_dir)
-            for i,reading in enumerate(source.get_readings()):
-                #print(reading)
+        file_dir = filename.replace('.measure3.cands.astrom', '')  + '_cand=' + str(cand) + '/'
+        sub_dir = storing_directory + file_dir
+        os.mkdir(sub_dir)
+        for i,reading in enumerate(source.get_readings()):
+            #print(reading)
 
-                if reading.dec in real_cands: # check up one earlier in source? always all 3 only
-                    label=1
-                    pos_label += 1
-                else:
-                    label=0 #do this earlier?
+            if reading.dec in real_cands: # check up one earlier in source? always all 3 only
+                label=1
+                pos_label += 1
+            else:
+                label=0 #do this earlier?
 
-                cutout = dlm.download_cutout(reading, needs_apcor=True)
-                sub_filename = filename.replace('.measure3.cands.astrom', '')  + '_cand=' + str(cand) + '_triplet='+ str(i) + '_label=' + str(label) + '.fits'
-                cutout.hdulist.writeto(sub_dir + sub_filename, overwrite=True)
-                print(sub_dir+sub_filename)
-            cand+=1
+            cutout = dlm.download_cutout(reading, needs_apcor=True)
+            sub_filename = filename.replace('.measure3.cands.astrom', '')  + '_cand=' + str(cand) + '_triplet='+ str(i) + '_label=' + str(label) + '.fits'
+            cutout.hdulist.writeto(sub_dir + sub_filename, overwrite=True)
+            print(sub_dir+sub_filename)
+        cand+=1
 
         print('num pos labels',pos_label)
