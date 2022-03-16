@@ -43,7 +43,7 @@ cutout_full_width = 121
 batch_size = 16
 dropout_rate = 0.2
 test_fraction = 0.15
-num_epochs = 50
+num_epochs = 70
 
 
 def crop_center(img, cropx, cropy):
