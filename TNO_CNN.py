@@ -70,7 +70,9 @@ def crop_center(img, cropx, cropy):
 # initialize
 file_lst = sorted(os.listdir(cutout_path))
 good_cutouts = []
+good_cutouts_names = []
 bad_cutouts = []
+bad_cutouts_names = []
 good_labels = []
 bad_labels = []
 triplet = []
@@ -135,9 +137,11 @@ for file in file_lst:
             if label == 1:
                 good_cutouts.append(triplet)
                 good_labels.append(1) # not needed
+                good_cutouts_names.append(file)
             elif label == 0:
                 bad_cutouts.append(triplet)
                 bad_labels.append(0) 
+                bad_cutouts_names.append(file)
 
             check_total +=1 
 
@@ -175,6 +179,7 @@ if num_good < num_bad:
     number_of_rows = bad_cutouts.shape[0]
     random_indices = np.random.choice(number_of_rows, size=num_good, replace=False)
     random_bad_cutouts = bad_cutouts[random_indices, :]
+    bad_cutouts_names = bad_cutouts_names[random_indices, :]
     random_good_cutouts = good_cutouts
     bad_labels = np.zeros(num_good) # can also just use previous list
 
@@ -182,6 +187,7 @@ elif num_good > num_bad:
     number_of_rows = good_cutouts.shape[0]
     random_indices = np.random.choice(number_of_rows, size=num_bad, replace=False)
     random_good_cutouts = good_cutouts[random_indices, :]
+    good_cutouts_names = good_cutouts_names[random_indices, :]
     random_bad_cutouts = bad_cutouts
     good_labels = np.ones(num_bad)
 
@@ -192,6 +198,9 @@ print('CNN total data shape', cutouts.shape)
 
 # make combined label array for good and bad cutouts
 labels = np.concatenate((good_labels, bad_labels))
+
+# make combined list of names so you can reference in ds9 later
+file_names = np.concatenate((good_cutouts_names, bad_cutouts_names))
             
 print(str(len(cutouts)) + ' files used')
 print(len(labels))
@@ -223,6 +232,7 @@ skf.split(cutouts, labels)
 for train_index, test_index in skf.split(cutouts, labels):
     X_train, X_test = cutouts[train_index], cutouts[test_index]
     y_train, y_test = labels[train_index], labels[test_index]
+    file_names_train, file_names_test = file_names [train_index], file_names[test_index]
 
 
 # define the CNN (move external later)
@@ -306,10 +316,11 @@ ax2.set_xlabel('Epoch')
 pyl.show()
 pyl.close()
 
-# EXTRA (for troubleshooting just done on train right now)
+######### EXTRA #########
 c = 0.5
 X_train = np.squeeze(X_train, axis=4)
 # plot test and train ones that don't agree with labels
+# JUST DOING TRAIN TO TROUBLESHOOT
 for i in range(len(preds_train)):
     triplet_Xtrain = X_train[i]
     #print(triplet_Xtrain.shape)
@@ -319,7 +330,6 @@ for i in range(len(preds_train)):
         #print(t.shape)
 
         if y_train[i] == 0 and preds_train[i][1] > c: # check confidence index
-            
             (c1, c2) = zscale.get_limits(t)
             normer = interval.ManualInterval(c1,c2)
             pyl.title('labeled no TNO, predicted TNO at conf=' + str(preds_train[i][1]) + 'triplet' + str(num))
