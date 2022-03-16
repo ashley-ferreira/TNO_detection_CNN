@@ -31,7 +31,7 @@ from astropy.io import fits
 zscale = ZScaleInterval()
 
 # initializing random seeds for reproducability
-np.random.seed(432)
+np.random.seed(4321)
 
 # where the cutouts are saved
 cutout_path = '/arc/projects/uvickbos/ML-MOD/new_cutouts_mar16/'
@@ -43,7 +43,7 @@ cutout_full_width = 121
 batch_size = 16
 dropout_rate = 0.2
 test_fraction = 0.3
-num_epochs = 50
+num_epochs = 60
 
 
 def crop_center(img, cropx, cropy):
