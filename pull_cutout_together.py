@@ -8,14 +8,13 @@ import numpy as np
 
 from reals_contents import pull_real_decs
 
-storing_directory = '/arc/projects/uvickbos/ML-MOD/new_cutouts_mar17_extra/'
+storing_directory = '/arc/projects/uvickbos/ML-MOD/new_cutouts_crop/'
 
 def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p14.measure3.cands.astrom', 
         filename='15AP+0+0_p14.measure3.cands.astrom', real_exists=0):
     '''
     
     '''
-    print('here 1')
     # use previous code to get cutout function initally setup
     storage.DBIMAGES = 'vos:OSSOS/dbimages'
     storage.MEASURE3 = 'vos:OSSOS/measure3'
@@ -31,8 +30,6 @@ def pull_cutout(full_filename='vos:OSSOS/measure3/2015A-P/15AP+0+0/15AP+0+0_p14.
 
     cand=0
     pos_label = 0
-
-    print('here 2')
 
 
     # loop through all candiates 

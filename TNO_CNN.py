@@ -63,7 +63,7 @@ def crop_center(img, cropx, cropy):
     x,y = img.shape 
     startx = x//2 - (cropx//2)
     starty = y//2 - (cropy//2)
-    cropped_img = img[int(starty):int(starty+cropy), int(startx):int(startx+cropx)]
+    cropped_img = img[int(startx):int(startx+cropx), int(starty):int(starty+cropy)]
 
     return cropped_img
 
