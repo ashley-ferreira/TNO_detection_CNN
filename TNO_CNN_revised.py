@@ -43,7 +43,7 @@ cutout_full_width = 121
 batch_size = 2042
 dropout_rate = 0.2
 test_fraction = 0.1
-num_epochs = 20
+num_epochs = 100
 learning_rate = 0.0001
 
 
