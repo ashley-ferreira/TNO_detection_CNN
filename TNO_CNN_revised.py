@@ -40,10 +40,11 @@ cutout_path = '/arc/projects/uvickbos/ML-MOD/new_cutouts_mar17/'
 cutout_full_width = 121
 
 # section for setting up some flags and hyperparameters
-batch_size = 16
+batch_size = 2042
 dropout_rate = 0.2
 test_fraction = 0.1
-num_epochs = 40
+num_epochs = 20
+learning_rate = 0.0001
 
 
 def crop_center(img, cropx, cropy):
@@ -284,7 +285,8 @@ print('model fit input shape (X_train.shape)', X_train.shape)
 # setup the model
 cn_model = convnet_model(X_train.shape[1:], training_labels = y_train_binary, unique_labs=unique_labels)
 cn_model.summary()
-cn_model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=["accuracy"])
+opt = Adam(learning_rate=learning_rate) 
+cn_model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=["accuracy"])
 
 # train the model, and time how long training takes
 start = time.time()
